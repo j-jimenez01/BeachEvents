@@ -1,10 +1,16 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text,ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import colors from '../../config/colors';
 
-function Home(props) {
+function Organization(props) {
     return (
-        <Text> Organization </Text>
+        <SafeAreaView style ={{backgroundColor: colors.primary, flex:1}}>
+            <ScrollView>
+                <Text style={{color: colors.third}}>Organized</Text>
+            </ScrollView>
+        </SafeAreaView>
     );
 }
 
-export default Home;
+export default Organization;
