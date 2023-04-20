@@ -1,10 +1,15 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, SafeAreaView, ScrollView } from 'react-native';
+import colors from '../../config/colors';
 
-function Home(props) {
+function Events(props) {
     return (
-        <Text> Events </Text>
+        <SafeAreaView style ={{backgroundColor: colors.primary, flex:1}}>
+            <ScrollView>
+                <Text style={{color: colors.third}}>Events</Text>
+            </ScrollView>
+        </SafeAreaView>
     );
 }
 
-export default Home;
+export default Events;
