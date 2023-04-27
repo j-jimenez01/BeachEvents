@@ -1,32 +1,30 @@
 import React from 'react';
 import { Button, SafeAreaView, View,StatusBar, StyleSheet, TouchableHighlight, Image,Text, TouchableOpacity} from 'react-native';
-import colors from '../../config/colors';
+import color from '../../config/color';
+import routes from '../../config/routes';
+
 
 
 
 function AccountSetting({navigation}) {
     return (
-        //Fix image touchable, can be touched outside the box in the sides
 
         <SafeAreaView style ={styles.back}>
 
             <View style ={styles.mainBorder}>
-                <View style ={styles.imageBorder}>
-                    
-                </View>
 
+                <View style ={styles.imageBorder}>
+                </View>
+                    <Button 
+                    title="Change Password" 
+                    onPress={()=> navigation.navigate(routes.NEW_PASSWORD)} />
                 <View style ={styles.settingBorder}>
                     
-                    <Button 
-                    title = "Change Password"
-                    backgroundColor={colors.third}
-                    onPress={() => navigation.navigate('ChangePassword')
-                    }
-                    />
-                    <Button 
+                
+                
+                <Button 
                     title = "Change Profile Picture"
-                    backgroundColor={colors.third}
-                    onPress={() => console.log("Change Profile Pic")
+                    onPress={() => navigation.navigate(routes.HOME)
                     }
                 />
                 </View>
@@ -37,7 +35,7 @@ function AccountSetting({navigation}) {
 }
 const styles = StyleSheet.create({
     back:{
-        backgroundColor: colors.third,
+        backgroundColor: color.third,
         flex:1,
         justifyContent:"center",
         alignItems:"center",
@@ -45,14 +43,14 @@ const styles = StyleSheet.create({
     textBorder:{
         width:"75%",
         height:"100%",
-        backgroundColor: colors.secondary,
+        backgroundColor: color.secondary,
         alignItems:"flex-start",
         justifyContent:"center",
     },
     mainBorder:{
         width:"100%",
         height:"100%",
-        backgroundColor:colors.primary,
+        backgroundColor:color.primary,
         alignItems:"center",
         justifyContent:"space-evenly",
     },
@@ -60,7 +58,7 @@ const styles = StyleSheet.create({
         width:"50%",
         height:"30%",
         borderRadius:25,
-        backgroundColor: colors.third,
+        backgroundColor: color.third,
     },
     settingBorder:{
         width: "100%",

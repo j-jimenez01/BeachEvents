@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import {React,useState} from 'react';
 import { Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import { StyleSheet } from 'react-native';
 
@@ -9,7 +9,7 @@ function NewPass({navigation}) {
     return (
     <View style={styles.container}>
         {/* inserting the logo */}
-        <Image style={styles.image} source = {require('../../assets/icon.png')}/>
+        <Image style={styles.image} source = {require('../../assests/icon.png')}/>
         {/* email design */}
         
             
@@ -52,7 +52,7 @@ function NewPass({navigation}) {
         <Text style={styles.loginText}>LOGIN </Text>
       </TouchableOpacity> */}
       {/* on press is if the login button pressed to move to the next page but will not have a way to go back */}
-      <TouchableOpacity onPress={()=> navigation.navigate("Home")} style={styles.loginbtn}>
+      <TouchableOpacity onPress={()=> navigation.goBack()} style={styles.loginbtn}>
           <Text style={styles.loginText}>Confirm </Text>
         </TouchableOpacity>
     </View>

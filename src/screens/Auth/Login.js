@@ -1,106 +1,100 @@
+import {React, useState} from 'react';
+import { SafeAreaView,View, Text, StyleSheet,Button,Image } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
+import color from '../../config/color';
+import routes from '../../config/routes';
 
-import { StyleSheet, Text, View,Image, TextInput, TouchableOpacity, StatusBar, SafeAreaView } from 'react-native';
-import React,{useState} from 'react';
-import colors from '../../config/colors';
+function Login(props) {
+  const {navigation} = props;
+  const [email, setEmail] =useState(null);
+  const [password, setPassword] = useState(null);
 
-export default function SignIn(props) {
-  // defining the email and pass word to login
-  const [email,setEmail] = useState('');
-  const [password,setPassword] = useState('');
   return (
-  
-    <SafeAreaView style={{flex:1}}>
-    <View style={styles.container}>
-    {/* inserting the logo */}
-      <StatusBar style="auto" barStyle="dark-content"/>
-      <View style={styles.imagebox}>
-      <Image resizeMethod='contain' style= {styles.image}  source = {require("../assets/icon.png")}/>
-      </View>
-
-      {/* email design */}
-      <View style={styles.signIn}>
-
-        <View style={styles.inputView}>
-          <TextInput
-          style={styles.TextInput}
-          placeholder="Email."
-          placeholderTextColor={"#000000"}
-          onChangeText={(email) => setEmail(email)}
-          />
-        </View>
-        {/* password design */}
-        <View style={styles.inputView}>
+    <SafeAreaView style={styles.container}>
+      <Image resizeMethod = "contain" style={styles.logo}
+        source={ require("../../assests/icon.png")}
+      />
+      <View style={styles.input}>
+        <View style={styles.bubble}>
         <TextInput
-          style={styles.TextInput}
-          placeholder="Password."
-          placeholderTextColor={"#000000"}
-          secureTextEntry={true}
+          placeholder='Email'
+          placeholderTextColor={color.primary}
+          onChangeText={ (email) => setEmail(email)}
+        />
+
+        </View>
+        <View style={styles.bubble} >
+        <TextInput
+          placeholder='Password'
+          placeholderTextColor={color.primary}
           onChangeText={(password) => setPassword(password)}
-          />
+        />
+
+        </View>
+        <View resizeMethod="contain" style ={styles.extra}>
+          <Button
+            title='Sign Up'
+            onPress={()=> navigation.navigate(routes.REGISTER)} />
+          
+          <Button
+            title='Forgot Password'
+            onPress={()=> navigation.navigate(routes.FORGOT_PASSWORD)} />
+          
         </View>
       </View>
-      {/* login button */}
-      <TouchableOpacity style={styles.loginbtn}>
-        <Text style={styles.loginText}>LOGIN</Text>
-      </TouchableOpacity>
 
-    </View>
+        <TouchableOpacity style={styles.login} onPress={() => navigation.navigate(routes.MENU_NAVIGATOR)}>
+          <Text>Login</Text>
+        </TouchableOpacity>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000000',//changing background color
-    alignItems: 'center',
-    justifyContent: "space-evenly",
+  container :{
+    flex:1,
+    backgroundColor: color.primary,
+    alignItems:"center",
+    justifyContent:"space-evenly",
+
   },
-  //editing image size and spacing from the input
-  image:{
-    height:"90%",
+  logo:{
+    height: "20%",
+    width:"30%",
+  },
+  input:{
     width:"90%",
+    height:"40%",
+    backgroundColor: "lightgrey",
+    alignItems:"center",
     borderRadius:25,
+    justifyContent:"space-evenly",
+
   },
-  imagebox:{
-    width: "30%",
+  extra:{
+    width:"80%",
     height:"15%",
     alignItems:"center",
-    justifyContent:"center",
-    backgroundColor: "#fff",
-    borderRadius:25,
-
+    justifyContent:"space-evenly",
+    flexDirection:"row"
   },
-  //giving the email and password design
-  inputView:{
-    backgroundColor: '#c97b06',
-    borderRadius:30,
+  bubble:{
     width:"100%",
-    height:45,
-    marginBottom:20,
-    alignItems:"center",
-  },
-  //editing the text size and spacing
-  TextInput:{
-    height: 50,
-    flex:1,
-    padding:10,
-    marginLeft:20,
-  },
-  loginbtn:{
-    width:"80%",
+    height:"20%",
+    backgroundColor: color.third,
     borderRadius:25,
-    height:50,
     alignItems:"center",
-    justifyContent:"center",
-    marginTop:40,
-    backgroundColor:"#c97b06"
+    justifyContent:"center"
   },
-  signIn:{
-    width:"80%",
-    height:"5%",
+  login:{
+    width:"100%",
+    height:"8%",
+    borderRadius:25,
+    backgroundColor: color.third,
     alignItems:"center",
     justifyContent:"center",
+  }
+})
 
-  },
-});
+export default Login;

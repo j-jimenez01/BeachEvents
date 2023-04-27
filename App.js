@@ -1,15 +1,14 @@
+import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
-import colors from './src/config/colors.js';
-import { StatusBar } from 'expo-status-bar';
-import MenuNav from './src/navigators/MenuNav.js';
-
-
+import { StatusBar } from 'react-native';
+import { LogNav } from './src/screens';
+import color from './src/config/color';
 
 export default function App() {
   return (
     <NavigationContainer>
-      <StatusBar style="auto" colors={colors.secondary} backgroundColor='black' barStyle="dark-content"/>
-      <MenuNav/>
+      <StatusBar style="auto" barStyle="light"/>
+      <LogNav/>
     </NavigationContainer>
   );
 }

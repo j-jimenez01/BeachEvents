@@ -1,12 +1,13 @@
 import React from 'react';
 import { Text, SafeAreaView, ScrollView } from 'react-native';
-import colors from '../../config/colors';
+import color from '../../config/color';
+
 
 function Events(props) {
     return (
-        <SafeAreaView style ={{backgroundColor: colors.primary, flex:1}}>
+        <SafeAreaView style ={{backgroundColor: color.primary, flex:1}}>
             <ScrollView>
-                <Text style={{color: colors.third}}>Events</Text>
+                <Text style={{color: color.third}}>Events</Text>
             </ScrollView>
         </SafeAreaView>
     );
