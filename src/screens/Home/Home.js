@@ -1,9 +1,10 @@
-import { React } from "react";
+import { React, useRef, useState } from "react";
 import {Text,  StyleSheet, SafeAreaView, TouchableOpacity, Button, View, TouchableHighlight} from "react-native";
 import color from '../../config/color';
 import MapView from 'react-native-maps';
 import { Marker, Callout } from 'react-native-maps';
 import routes from '../../config/routes';
+import { MaterialIcons } from "@expo/vector-icons";
 
 let locationsOfInterest = [
     {
@@ -77,6 +78,14 @@ function Home({navigation}) {
     const onRegionChange = (region) => {
         console.log(region);
     };
+    const mapRef = useRef();
+    const [initialRegion, setInitialRegion] = useState({
+      latitude: 33.78051187469627,
+      longitude: -118.11546007304146,
+      latitudeDelta: 0.02678482487370104,
+      longitudeDelta: 0.015532763320436516,
+    });
+
     const showLocationsOfInterest = () => {
         return locationsOfInterest.map((item, index) => {
           return (
@@ -108,22 +117,29 @@ function Home({navigation}) {
         <SafeAreaView style={styles.container}>
                 <MapView style={styles.map}
                     //onRegionChange={onRegionChange}
-                    initialRegion ={{
-                        latitude: 33.781640007616446,
-                        latitudeDelta: 0.012703776372283926,
-                        longitude: -118.11466373356916,
-                        longitudeDelta: 0.008290534268013516
-                }}
+                    ref={mapRef}
+                    initialRegion ={initialRegion}
+                    onRegionChange={(e) => setInitialRegion(e)}
                 >
                     {showLocationsOfInterest()}
-                    <Marker 
-              coordinate= {{
-                latitude: 33.781640007616446,
-                latitudeDelta: 0.012703776372283926,
-                longitude: -118.11466373356916,
-                longitudeDelta: 0.008290534268013516
-            }}
-            >
+                    <TouchableOpacity
+                        style={{
+                        width: 60,
+                        height: 60,
+                        top: 680,
+                        left: 320,
+                        }}
+                        onPress={() =>
+                        mapRef.current.animateToRegion({
+                            latitude: 33.78051187469627,
+                            longitude: -118.11546007304146,
+                            latitudeDelta: 0.02678482487370104,
+                            longitudeDelta: 0.015532763320436516,
+                        })
+                        }
+                    >
+                        <MaterialIcons name="location-city" size={40} color="black" />
+                    </TouchableOpacity>
                 <Callout>
                     <TouchableOpacity
                         onPress={() => navigation.navigate(routes.EVENTS)}
@@ -131,7 +147,6 @@ function Home({navigation}) {
                         <Text>Events</Text>
                     </TouchableOpacity>
                 </Callout>
-            </Marker>
                 </MapView>
         </SafeAreaView>
     );
