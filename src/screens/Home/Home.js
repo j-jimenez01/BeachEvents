@@ -140,13 +140,6 @@ function Home({navigation}) {
                     >
                         <MaterialIcons name="location-city" size={40} color="black" />
                     </TouchableOpacity>
-                <Callout>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate(routes.EVENTS)}
-                    >
-                        <Text>Events</Text>
-                    </TouchableOpacity>
-                </Callout>
                 </MapView>
         </SafeAreaView>
     );
