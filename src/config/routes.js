@@ -1,3 +1,4 @@
+//this is our route file with the route names of the files to make it easier to import (causes less confusion)
 export default {
     LOGIN: 'Login',
     REGISTER: 'Sign Up',
@@ -11,8 +12,8 @@ export default {
     CHANGE: 'Change',
     LOGIN_NAV:'Login Navigator',
     MENU_NAVIGATOR:'Menu Navigator',
-    SUBSCRIBE: 'Subscribe',
-    SUBORG: 'Subscribed Organizations',
+    SUBSCRIBE: 'Subscribed To',
+    SUBORG: 'Organization Events',
     MAPNAV: 'Map',
     SUBNAV: 'Sub Navigator',
 

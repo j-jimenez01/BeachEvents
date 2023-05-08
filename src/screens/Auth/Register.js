@@ -4,6 +4,7 @@ import color from '../../config/color';
 
 
 export default function Register({navigation}){
+  //initialize the variables
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [confirmPassword,setConfirmPassword] = useState('');
@@ -11,7 +12,7 @@ export default function Register({navigation}){
         <View style={styles.container}>
             <StatusBar style="auto" barStyle="light-content"/>
         <View style={styles.inputView}>
-        <TextInput
+        <TextInput //input bubble for email
         style={styles.TextInput}
         placeholder="CSULB Email"
         placeholderTextColor={"#000000"}
@@ -52,14 +53,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
       },
       inputView:{
-        backgroundColor: '#c97b06',
+        backgroundColor: '#c97b06', //bubble design
         borderRadius:30,
         width:"70%",
         height:45,
         marginBottom:20,
         alignItems:"center",
       },
-      TextInput:{
+      TextInput:{ //font design
         height: 50,
         flex:1,
         padding:10,

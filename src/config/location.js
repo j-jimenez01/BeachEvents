@@ -1,9 +1,8 @@
-
-let POI = [{
-    LA1 :{
-        name: "Liberal Arts 1",
-        abbreviation: "LA1",
-        locate:{
+let locationsOfInterest = [
+    {
+        title: "LA1",
+        description: "Liberal Arts 1",
+        location:{
         latitude: 33.77765192172539,
         latitudeDelta: 0.0015601735620123236,
         longitude: -118.11473586308168,
@@ -13,10 +12,10 @@ let POI = [{
     
     },
 
-    LA2 :{
-        name: "Liberal Arts 2",
-        abbreviation: "LA2",
-        locate:{
+    {
+        description: "Liberal Arts 2",
+        title: "LA2",
+        location:{
         latitude: 33.77795965765024,
         latitudeDelta: 0.00135923712341679,
         longitude: -118.11457938594178,
@@ -26,10 +25,10 @@ let POI = [{
     
     },
 
-    LA3 :{
-        name: "Liberal Arts 3",
-        abbreviation: "LA3",
-        locate:{
+    {
+        description: "Liberal Arts 3",
+        title: "LA3",
+        location:{
         latitude: 33.778217980971895,
         latitudeDelta: 0.0013592330243099582,
         longitude: -118.1144875976943,
@@ -41,10 +40,10 @@ let POI = [{
 
    
 
-    LA4 :{
-        name: "Liberal Arts 4",
-        abbreviation: "LA4",
-        locate:{
+    {
+        description: "Liberal Arts 4",
+        title: "LA4",
+        location:{
         latitude: 33.778540144857764,
         latitudeDelta: 0.0013592279121255046,
         longitude: -118.11438072973003,
@@ -53,10 +52,10 @@ let POI = [{
 
     
     },
-    LA5 :{
-        name: "Liberal Arts 5",
-        abbreviation: "LA5",
-        locate:{
+    {
+        description: "Liberal Arts 5",
+        title: "LA5",
+        location:{
         latitude: 33.77894542410917,
         latitudeDelta: 0.0014901037364225544,
         longitude: -118.1142452963567,
@@ -65,6 +64,4 @@ let POI = [{
 
     
     },
-
-
-}]
+]

@@ -1,10 +1,12 @@
 import React from 'react';
 import { ScrollView, Text } from 'react-native';
-
+import color from '../../config/color';
+//Sub org shows a list of all events of the subcribed club
 function SubOrg(props) {
     return (
-        <ScrollView>
-            <Text>Subscribed Organization</Text>
+        <ScrollView style={{backgroundColor: color.primary}}>
+            <Text style={{color: color.third}} //placeholder for backend to display clubs user is subscribed to
+            >Subscribed Organization</Text>
         </ScrollView>
     );
 }

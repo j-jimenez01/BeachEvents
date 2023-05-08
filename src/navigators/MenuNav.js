@@ -7,18 +7,22 @@ import {Events, Organization} from '../screens';
 
 const Drawer = createDrawerNavigator();
 
+//Main navigator with a drawer, for the main menu
+
 export default function MenuNav() {
   return (
       
-      <Drawer.Navigator initialRouteName="Home" screenOptions={{
+      <Drawer.Navigator initialRouteName="Home" screenOptions={{ //design of the drawer
         headerTintColor:color.third,
         drawerActiveTintColor: color.third,
         drawerInactiveTintColor: "#fff",
         headerStyle:{backgroundColor: color.secondary},
          drawerStyle: { backgroundColor: color.secondary} }}>
         
-        <Drawer.Screen name={routes.HOME} component={MapNav}/>
-        <Drawer.Screen name={routes.CHANGE} component={Change}/>
+
+        <Drawer.Screen name={routes.HOME} component={MapNav} //All the paged in the drawer
+        />
+        <Drawer.Screen name={routes.ACCOUNT_SETTINGS} component={Change}/>
         <Drawer.Screen name={routes.EVENTS} component={Events} />
         <Drawer.Screen name={routes.ORGANIZATION} component={Organization} />
         <Drawer.Screen name={routes.SUBSCRIBE} component={SubNav} />

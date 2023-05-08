@@ -1,3 +1,6 @@
+//This index file is to import files more efficiently
+
+//screens
 export {default as AccountSetting} from '../screens/Home/AccountSetting';
 export {default as Events} from '../screens/Home/Events';
 export {default as Home} from '../screens/Home/Home';
@@ -11,6 +14,7 @@ export {default as Login} from '../screens/Auth/Login';
 export {default as Register} from '../screens/Auth/Register';
 export {default as Forgot} from '../screens/Auth/Forgot';
 
+//navigators
 export {default as MenuNav} from '../navigators/MenuNav';
 export {default as Change} from '../navigators/Change';
 export {default as LogNav} from '../navigators/LogNav';

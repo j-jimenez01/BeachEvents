@@ -3,7 +3,7 @@ import { Button, SafeAreaView, View,StatusBar, StyleSheet, TouchableHighlight, I
 import color from '../../config/color';
 import routes from '../../config/routes';
 
-
+//Account setting page where user can change password or change profile pic
 
 
 function AccountSetting({navigation}) {
@@ -16,14 +16,14 @@ function AccountSetting({navigation}) {
                 <View style ={styles.imageBorder}>
                 </View>
                     <Button 
-                    title="Change Password" 
+                    title="Change Password" //change password button
                     onPress={()=> navigation.navigate(routes.NEW_PASSWORD)} />
                 <View style ={styles.settingBorder}>
                     
                 
                 
                 <Button 
-                    title = "Change Profile Picture"
+                    title = "Change Profile Picture" //change picture button
                     onPress={() => navigation.navigate(routes.HOME)
                     }
                 />
@@ -34,49 +34,33 @@ function AccountSetting({navigation}) {
     );
 }
 const styles = StyleSheet.create({
-    back:{
+    back:{ //background
         backgroundColor: color.third,
         flex:1,
         justifyContent:"center",
         alignItems:"center",
-    },
-    textBorder:{
-        width:"75%",
-        height:"100%",
-        backgroundColor: color.secondary,
-        alignItems:"flex-start",
-        justifyContent:"center",
-    },
-    mainBorder:{
+    }
+    ,
+    mainBorder:{ //main border holds everything
         width:"100%",
         height:"100%",
         backgroundColor:color.primary,
         alignItems:"center",
         justifyContent:"space-evenly",
     },
-    imageBorder:{
+    imageBorder:{ //border where the profile pic willl be placed
         width:"50%",
         height:"30%",
         borderRadius:25,
         backgroundColor: color.third,
     },
-    settingBorder:{
+    settingBorder:{ //border for the options to change password or picture
         width: "100%",
         height:"30%",
         alignItems:"center",
         justifyContent:"flex-start",
     },
-    line:{
-        height:"80%",
-        width:"80%",
-        left:"10%",
-        
-    },
-    titleText:{
-        fontSize : 30,
-        fontWeight: "300",
-        color:"white"
-    },
+
 })
 
 export default AccountSetting;

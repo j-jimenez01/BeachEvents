@@ -9,20 +9,27 @@ const Stack = createStackNavigator();
 export default function LogNav() {
 
   return (
-    <Stack.Navigator initialRouteName={routes.LOGIN}>
+
+    <Stack.Navigator initialRouteName={routes.LOGIN} //creates navigator for login
+    >
       <Stack.Group>
-      <Stack.Screen name={routes.LOGIN} component={Login} options={{headerShown:false}}/>
+      <Stack.Screen name={routes.LOGIN} component={Login} options={{headerShown:false}} //login page
+      />
       </Stack.Group>
 
-      <Stack.Group screenOptions={{presentation:"modal"}}>
+      <Stack.Group screenOptions={{presentation:"modal"}} //pop up
+      >
 
-      <Stack.Screen name={routes.FORGOT_PASSWORD} component={Forgot} />
-      <Stack.Screen name={routes.REGISTER} component={Register} />
+      <Stack.Screen name={routes.FORGOT_PASSWORD} component={Forgot} //forgot page
+       />
+      <Stack.Screen name={routes.REGISTER} component={Register} //Register page
+       />
       </Stack.Group>
       
       <Stack.Group>
 
-      <Stack.Screen name={routes.MENU_NAVIGATOR} component={MenuNav} options={{headerShown:false}}/>
+      <Stack.Screen name={routes.MENU_NAVIGATOR} component={MenuNav} options={{headerShown:false}}  //Home page with the menu navigator
+      />
       </Stack.Group>
     </Stack.Navigator>
     

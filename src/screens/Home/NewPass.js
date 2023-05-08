@@ -2,6 +2,8 @@ import {React,useState} from 'react';
 import { Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import { StyleSheet } from 'react-native';
 
+//New password where users can change their password
+
 function NewPass({navigation}) {
     const [current,setCurrent] = useState('');
     const [newpass,setPass] = useState('');

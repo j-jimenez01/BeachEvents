@@ -4,13 +4,14 @@ import routes from '../config/routes';
 import { SubOrg, Subscribe } from '../screens';
 
 
-
+//navigator for the subscribe to club events
 const Stack = createStackNavigator();
 
 export default function SubNav() {
 
   return (
-    <Stack.Navigator initialRouteName={routes.SUBSCRIBE}>
+    <Stack.Navigator initialRouteName={routes.SUBSCRIBE} //starts with subscribe page
+    >
       <Stack.Group>
       <Stack.Screen name={routes.SUBSCRIBE} component={Subscribe} options={{headerShown:false}}/>
       </Stack.Group>

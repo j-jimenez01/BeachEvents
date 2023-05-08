@@ -4,8 +4,10 @@ import { TextInput } from 'react-native-gesture-handler';
 import { TouchableOpacity } from 'react-native';
 import color from '../../config/color';
 import routes from '../../config/routes';
+//Login page where you will enter email and password or be able to sign up or make a new password
 
 function Login(props) {
+  {/*initializes the keywords that will be used to store info*/}
   const {navigation} = props;
   const [email, setEmail] =useState(null);
   const [password, setPassword] = useState(null);
@@ -13,57 +15,60 @@ function Login(props) {
   return (
     <SafeAreaView style={styles.container}>
       <Image resizeMethod = "contain" style={styles.logo}
-        source={ require("../../assests/icon.png")}
+        source={ require("../../assests/icon.png")} //our logo
       />
       <View style={styles.input}>
         <View style={styles.bubble}>
         <TextInput
-          placeholder='Email'
+          placeholder='Email' //bubble to enter email
           placeholderTextColor={color.primary}
-          onChangeText={ (email) => setEmail(email)}
+          onChangeText={ (email) => setEmail(email)}//stores the users input to email
         />
 
         </View>
         <View style={styles.bubble} >
         <TextInput
-          placeholder='Password'
+          placeholder='Password' //bubble for password
           placeholderTextColor={color.primary}
-          onChangeText={(password) => setPassword(password)}
+          onChangeText={(password) => setPassword(password)} //stores user's input to password
         />
 
         </View>
         <View resizeMethod="contain" style ={styles.extra}>
           <Button
-            title='Sign Up'
+            title='Sign Up' //Button to sign up, will redirect to sign up page when clicked on
             onPress={()=> navigation.navigate(routes.REGISTER)} />
           
           <Button
-            title='Forgot Password'
+            title='Forgot Password' //Button if you forgot your password, will redirect to Forgot page when clicked on
             onPress={()=> navigation.navigate(routes.FORGOT_PASSWORD)} />
           
         </View>
       </View>
 
-        <TouchableOpacity style={styles.login} onPress={() => navigation.navigate(routes.MENU_NAVIGATOR)}>
-          <Text>Login</Text>
+        <TouchableOpacity style={styles.login} onPress={() => navigation.navigate(routes.MENU_NAVIGATOR)} // Login button, will redirect to the home page when clicked
+        >
+          <Text>Login 
+
+          </Text>
         </TouchableOpacity>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container :{
+  container :{ //background
     flex:1,
     backgroundColor: color.primary,
     alignItems:"center",
     justifyContent:"space-evenly",
 
   },
-  logo:{
+  logo:{ //logo dimensions
     height: "20%",
     width:"30%",
   },
-  input:{
+  input:{  //border for input bubbles
     width:"90%",
     height:"40%",
     backgroundColor: "lightgrey",
@@ -72,14 +77,14 @@ const styles = StyleSheet.create({
     justifyContent:"space-evenly",
 
   },
-  extra:{
+  extra:{ // border for sign up and forgot paswword
     width:"80%",
     height:"15%",
     alignItems:"center",
     justifyContent:"space-evenly",
     flexDirection:"row"
   },
-  bubble:{
+  bubble:{ // user input bubble
     width:"100%",
     height:"20%",
     backgroundColor: color.third,
@@ -87,7 +92,7 @@ const styles = StyleSheet.create({
     alignItems:"center",
     justifyContent:"center"
   },
-  login:{
+  login:{ // login button
     width:"100%",
     height:"8%",
     borderRadius:25,
