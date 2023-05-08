@@ -13,7 +13,7 @@ export default {
     MENU_NAVIGATOR:'Menu Navigator',
     SUBSCRIBE: 'Subscribe',
     SUBORG: 'Subscribed Organizations',
-    MAPNAV: 'Map Navigator',
+    MAPNAV: 'Map',
     SUBNAV: 'Sub Navigator',
 
   };
