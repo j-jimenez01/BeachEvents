@@ -122,12 +122,13 @@ function Home({navigation}) {
                     onRegionChange={(e) => setInitialRegion(e)}
                 >
                     {showLocationsOfInterest()}
+                    <View style={{justifyContent:'flex-end', alignItems:'flex-end', top:'90%'}} >
+
                     <TouchableOpacity
                         style={{
                         width: 60,
                         height: 60,
-                        top: 680,
-                        left: 320,
+                        
                         }}
                         onPress={() =>
                         mapRef.current.animateToRegion({
@@ -138,8 +139,10 @@ function Home({navigation}) {
                         })
                         }
                     >
-                        <MaterialIcons name="location-city" size={40} color="black" />
+                        <MaterialIcons name="location-city" size={40} color="black"/>
                     </TouchableOpacity>
+                    </View>
+                
                 </MapView>
         </SafeAreaView>
     );
@@ -147,8 +150,6 @@ function Home({navigation}) {
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        justifyContent:"center",
-        alignItems:'center',
         backgroundColor: color.primary,
 
     },
