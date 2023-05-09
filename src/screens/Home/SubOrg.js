@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text } from 'react-native';
+import { Text, SafeAreaView, ScrollView,View,StyleSheet} from 'react-native';
 import color from '../../config/color';
 //Sub org shows a list of all events of the subcribed club
 function SubOrg(props) {
