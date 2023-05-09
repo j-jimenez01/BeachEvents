@@ -14,6 +14,9 @@ function AccountSetting({navigation}) {
             <View style ={styles.mainBorder}>
 
                 <View style ={styles.imageBorder}>
+                    <Image  style ={styles.logo}
+                    source={ require("../../assests/user.png")} //our logo
+                />
                 </View>
                     <Button 
                     title="Change Password" //change password button
