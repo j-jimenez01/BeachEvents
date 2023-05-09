@@ -14,7 +14,7 @@ function Login(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Image resizeMethod = "contain" style={styles.logo}
+      <Image style={styles.logo}
         source={ require("../../assests/icon.png")} //our logo
       />
       <View style={styles.input}>
