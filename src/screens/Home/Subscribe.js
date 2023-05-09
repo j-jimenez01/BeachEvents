@@ -16,27 +16,27 @@ function Subscribe({navigation}) {
     const Org =  //list of organizations, placeholder for backend to get the list of clubs
     [{
         id:1,
-        name:"Organization 1",
+        name:"ASI",
     },
     {
         id:2, 
-        name:"Organization 2"
+        name:"SRWC"
     },
     {
         id:3,
-        name: "Organization 3"
+        name: "Food Truck"
     },
     {
         id:4,
-        name: "Organization 4"
+        name: "SHPE"
     },
     {
         id:5,
-        name: "Organization 5"
+        name: "CSULB Soccer"
     },
     {
         id:6,
-        name: "Organization 6"
+        name: "VGDC"
     },
     ]
     return (
