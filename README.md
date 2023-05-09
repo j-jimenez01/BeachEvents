@@ -26,8 +26,13 @@ npx expo start --clear
 
 Credits:
 Juan Rivera, JuanRivera-7
+  
 Jose Jimenez, NoMamesWey1
+  
 Ayush Patel
+  
 Keshav Mehta
+  
 Dhruv Govasiya
+  
 Josh Hicks
