@@ -39,16 +39,6 @@ What better way to conclude this semester? See you there and Pura Vida!</Text>
 export default Events;
 
 const styles = StyleSheet.create({
-    // container: {
-    //     backgroundColor: '#c97b06',
-    //     padding: 10,
-    //     borderRadius: 10,
-    // },
-    // text:{
-    //     color: '#ffffff',
-    //     fontSize: 16,
-    //     fontWeight: 'bold',
-    // }
     container: {
         backgroundColor: '#c97b06',
         padding: 10,
