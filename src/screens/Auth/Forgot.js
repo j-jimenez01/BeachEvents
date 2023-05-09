@@ -25,7 +25,7 @@ function Forgot({navigation}) {
                 
             
             {/* password design */}
-            <View style={styles.inputView}>
+            {/* <View style={styles.inputView}>
                 <TextInput
                     style={styles.TextInput}
                     placeholder="New Password"
@@ -33,9 +33,9 @@ function Forgot({navigation}) {
                     secureTextEntry={true}
                     onChangeText={(newpass) => setPass(newpass)}
                     />
-            </View>
+            </View> */}
             {/* password design */}
-            <View style={styles.inputView}>
+            {/* <View style={styles.inputView}>
                 <TextInput
                     style={styles.TextInput}
                     placeholder="Enter New Password Again"
@@ -43,7 +43,7 @@ function Forgot({navigation}) {
                     secureTextEntry={true}
                     onChangeText={(again) => setAgain(again)}
                     />
-            </View>
+            </View> */}
       </View>
       {/* login button */}
       {/* on press is if the login button pressed to move to the next page and will have a way to go back
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
     },
     //editing image size and spacing from the input
     image:{
-      height:"20%",
-      width:"30%",
+      height:"30%",
+      width:"40%",
       
     },
     //giving the email and password design
@@ -87,8 +87,7 @@ const styles = StyleSheet.create({
     TextInput:{
       height: 50,
       flex:1,
-      padding:10,
-      marginLeft:20,
+      padding:0,
       alignContent:"center",
       justifyContent:"center"
     },
@@ -98,7 +97,7 @@ const styles = StyleSheet.create({
       height:50,
       alignItems:"center",
       justifyContent:"center",
-      marginTop:40,
+      marginTop:15,
       backgroundColor:"#c97b06"
     },
     loginText:{
@@ -106,7 +105,7 @@ const styles = StyleSheet.create({
     },
     inputContain:
     {
-        height:"40%",
+        height:"30%",
         width:"90%",
         justifyContent:"center",
         alignContent:"center",
