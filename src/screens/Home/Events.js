@@ -9,7 +9,7 @@ function Events(props) {
 
   const getOrgs = async () => {
     const res = await fetch(
-      `http://192.168.137.1:8000/data/searchEvents`,
+      `http://10.39.21.101:8000/data/searchEvents`,
       {
         method: "GET",
         headers: {

@@ -11,7 +11,7 @@ function Organization(props) {
 
   const getOrgs = async (strInp) => {
     const res = await fetch(
-      `http://192.168.137.1:8000/data/orgs?query=${strInp}`,
+      `http://10.39.21.101:8000/data/orgs?query=${strInp}`,
       {
         method: "GET",
         headers: {
