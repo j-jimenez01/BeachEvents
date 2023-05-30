@@ -1,6 +1,7 @@
 **Project: BeachEvents**
 
 **Description:** 
+
 Introducing BeachEvents, your ultimate solution to stay informed and never miss out on important club meetings, school events, sports events, and everything happening at your school. With BeachEvents, you can say goodbye to the hassle of constantly checking for updates because we've got you covered.
 
 Here's how BeachEvents makes your life easier:
