@@ -1,4 +1,4 @@
-**Project: BeachEvents**
+**App: BeachEvents**
 
 **Description:** 
 
