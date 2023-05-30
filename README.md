@@ -29,7 +29,7 @@ Credits:
 
 Contributors:
 - Juan Rivera (GitHub: JuanRivera-7)
-- Jose Jimenez (GitHub: NoMamesWey1)
+- Jose Jimenez (GitHub: j-jimenez01)
 - Ayush Patel
 - Keshav Mehta
 - Dhruv Govasiya
