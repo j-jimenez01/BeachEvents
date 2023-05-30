@@ -26,14 +26,11 @@ python manage.py runserver "YOUR IP":8000
 
 
 Credits:
-Juan Rivera, JuanRivera-7
-  
-Jose Jimenez, NoMamesWey1
-  
-Ayush Patel
-  
-Keshav Mehta
-  
-Dhruv Govasiya
-  
-Josh Hicks
+
+Contributors:
+- Juan Rivera (GitHub: JuanRivera-7)
+- Jose Jimenez (GitHub: NoMamesWey1)
+- Ayush Patel
+- Keshav Mehta
+- Dhruv Govasiya
+- Josh Hicks
