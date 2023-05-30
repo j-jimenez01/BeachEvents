@@ -18,10 +18,12 @@ NOTE: Download the Yarn version
 - react native gesture handler
 - react navigation drawer
 - react native map
-6.Run the code in the terminal using the following command:
+6. In another terminal install django, django-corshears, django-rate-frame, and requests
+7. In that same terminal run the code and change "YOURIP" to your IP for that computer
+python manage.py runserver "YOUR IP":8000
+8. Run the code in the terminal using the following command:
 npx expo start --clear
-
-7. Use phone device to scan QR code to see the app in your device.
+9. Use phone device to scan QR code to see the app in your device.
 
 
 Credits:
