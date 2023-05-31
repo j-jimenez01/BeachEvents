@@ -4,7 +4,7 @@
 
 Introducing BeachEvents, your ultimate solution to stay informed and never miss out on important club meetings, school events, sports events, and everything happening at your school. With BeachEvents, you can say goodbye to the hassle of constantly checking for updates because we've got you covered.
 
-Here's how BeachEvents makes your life easier:
+Here is how BeachEvents makes your life easier:
 
 1. Smart Event Reminders: BeachEvents ensures that you never miss any important event by sending you timely reminders. Say goodbye to the worry of forgetting or being caught off guard.
 
