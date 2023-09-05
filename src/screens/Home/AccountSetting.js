@@ -1,12 +1,55 @@
-import React from 'react';
+import {React, useEffect, useState} from 'react';
 import { Button, SafeAreaView, View,StatusBar, StyleSheet, TouchableHighlight, Image,Text, TouchableOpacity} from 'react-native';
 import color from '../../config/color';
 import routes from '../../config/routes';
+import * as ImagePicker from "expo-image-picker";
+import { Linking } from 'react-native';
 
 //Account setting page where user can change password or change profile pic
 
 
 function AccountSetting({navigation}) {
+
+    const[image, setImage] = useState(null);
+
+    const [perm, setPerm] = useState(null);
+    
+    useEffect(() =>{
+            (async()=> {
+                if(Platform.OS === "ios"){
+                    const {status} = ImagePicker.requestMediaLibraryPermissionsAsync();
+                    if(status !== "granted"){
+                        alert("Permission not granted")
+                        setPerm(false)
+                    }
+                    else{
+                        setPerm(true)
+                    }
+                }
+            })();
+        }, [])
+    
+        console.log("perm", perm);
+    const pickImage = async() =>{
+        
+        
+        if(perm){
+            let picture = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes : ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true
+            })
+            console.log("result", picture)
+
+
+            if(!picture.canceled){
+                setImage(picture.uri)
+            }
+        }
+        else{
+            Linking.openSettings();
+        }
+    }
+
     return (
 
         <SafeAreaView style ={styles.back}>
@@ -15,7 +58,7 @@ function AccountSetting({navigation}) {
 
                 <View style ={styles.imageBorder}>
                     <Image  style ={styles.logo}
-                    source={ require("../../assests/user.png")} //our logo
+                    source={image} //our logo
                 />
                 </View>
                     <Button 
@@ -27,8 +70,7 @@ function AccountSetting({navigation}) {
                 
                 <Button 
                     title = "Change Profile Picture" //change picture button
-                    onPress={() => navigation.navigate(routes.HOME)
-                    }
+                    onPress={pickImage}
                 />
                 </View>
                 
