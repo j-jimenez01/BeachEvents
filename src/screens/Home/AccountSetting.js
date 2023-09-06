@@ -13,27 +13,44 @@ function AccountSetting({navigation}) {
     const[image, setImage] = useState(null);
 
     const [perm, setPerm] = useState(null);
+    const [imgUrl, setImgUrl] = useState(false);
     
     useEffect(() =>{
             (async()=> {
                 if(Platform.OS === "ios"){
-                    const {status} = ImagePicker.requestMediaLibraryPermissionsAsync();
+                    const {status} = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                    console.log("status:",status);
                     if(status !== "granted"){
+                        setPerm("denied");
                         alert("Permission not granted")
-                        setPerm(false)
+                        console.log("perm:",perm)
                     }
                     else{
-                        setPerm(true)
+                        setPerm("granted");
+                        console.log("perm:",perm)
                     }
                 }
             })();
-        }, [])
-    
-        console.log("perm", perm);
+            // const {status} = ImagePicker.requestMediaLibraryPermissionsAsync();
+
+        }, []);
+        
+
+    const access = async()=> {useEffect(() =>{
+        (async()=> {
+            console.log("wowooowowoow");
+            const {status} = await ImagePicker.getMediaLibraryPermissionsAsync();
+            setPerm(status);
+            console.log("new status:", status);
+            console.log("new perm:", perm);
+        })();
+    })};
+
+
     const pickImage = async() =>{
         
         
-        if(perm){
+        if(perm == "granted"){
             let picture = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes : ImagePicker.MediaTypeOptions.Images,
                 allowsEditing: true
@@ -42,13 +59,17 @@ function AccountSetting({navigation}) {
 
 
             if(!picture.canceled){
+                setImgUrl(true)
                 setImage(picture.uri)
             }
         }
         else{
             Linking.openSettings();
-        }
-    }
+            access();
+            
+    }}
+
+    
 
     return (
 
@@ -58,7 +79,7 @@ function AccountSetting({navigation}) {
 
                 <View style ={styles.imageBorder}>
                     <Image  style ={styles.logo}
-                    source={image} //our logo
+                    source={imgUrl ? {uri: image}: require("../../assests/user.png")} //our logo
                 />
                 </View>
                     <Button 
@@ -94,10 +115,14 @@ const styles = StyleSheet.create({
         justifyContent:"space-evenly",
     },
     imageBorder:{ //border where the profile pic willl be placed
-        width:"50%",
+        width:"53%",
         height:"30%",
         borderRadius:25,
         backgroundColor: color.third,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: "2.5%",
+        paddingBottom: "2.5%",
     },
     settingBorder:{ //border for the options to change password or picture
         width: "100%",
@@ -107,7 +132,9 @@ const styles = StyleSheet.create({
     },
     logo:{
         flex:1,
-        width:'100%'
+        width:'90%',
+        height: '90%',
+        borderRadius: 25
     }
 
 })
