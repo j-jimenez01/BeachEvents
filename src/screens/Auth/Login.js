@@ -59,7 +59,7 @@ function Login(props) {
 const styles = StyleSheet.create({
   container :{ //background
     flex:1,
-    backgroundColor: color.primary,
+    backgroundColor: "#3A3A38",
     alignItems:"center",
     justifyContent:"space-evenly",
 
