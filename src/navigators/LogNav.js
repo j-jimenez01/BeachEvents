@@ -1,8 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import routes from '../config/routes';
-import { Forgot, Login, MenuNav, Register,  } from '../screens';
-import {RegNav} from '../navigators'
+import { Forgot, Login, MenuNav, Register, RegNav} from '../screens';
 
 
 const Stack = createStackNavigator();
@@ -23,8 +22,10 @@ export default function LogNav() {
 
       <Stack.Screen name={routes.FORGOT_PASSWORD} component={Forgot} //forgot page
        />
+     
       <Stack.Screen name={routes.REGISTER} component={RegNav} //Register page
        />
+     
       </Stack.Group>
       
       <Stack.Group>

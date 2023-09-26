@@ -1,10 +1,12 @@
 import React,{useState} from 'react';
 import { StyleSheet, Text, View,Image, TextInput, TouchableOpacity, StatusBar, SafeAreaView, Button } from 'react-native';
 import color from '../../config/color';
+import routes from '../../config/routes';
 
 
 export default function Register({navigation}){
   //initialize the variables
+    const [code,setCode] = useState('');
     const [password,setPassword] = useState('');
     const [confirmPassword,setConfirmPassword] = useState('');
     return(
@@ -13,13 +15,25 @@ export default function Register({navigation}){
 
         <View style={styles.prompt}>
           <Text style={styles.pText}>
-            Please enter your CSULB email below. </Text>
-            <Text style={styles.pText}>ONLY CSULB emails can sign up.</Text>
-         
+            A 5 digit code has been sent to the email entered.
+            Please enter the code and the password.
+             </Text>
+            <Text style={{fontSize: 10, textAlign:'center',fontStyle:"italic",fontFamily:"Helvetica", marginHorizontal:10,
+ }}> NOTE: Check spam folder if you can not find the email with the code</Text>
         </View>
 
        
       {/* password design */}
+      <View style={styles.inputView}>
+      <TextInput
+        style={styles.TextInput}
+        placeholder="Confirmation Code"
+        placeholderTextColor={"#000000"}
+        secureTextEntry={true}
+        onChangeText={(code) => setCode(code)}
+        />
+        </View>
+
       <View style={styles.inputView}>
       <TextInput
         style={styles.TextInput}
@@ -29,7 +43,7 @@ export default function Register({navigation}){
         onChangeText={(password) => setPassword(password)}
         />
       </View>
-      {/* confirm email */}
+      {/* confirm pw */}
       <View style={styles.inputView}>
         <TextInput
         style={styles.TextInput}
@@ -40,7 +54,7 @@ export default function Register({navigation}){
       </View>
       <Button
           title='Confirm'
-          onPress={()=> navigation.goBack()}
+          onPress={()=> navigation.navigate(routes.LOGIN)}
       />
         </View>
     )
@@ -50,14 +64,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: color.primary,//changing background color
         alignItems: 'center',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
+        rowGap:40,
       },
       inputView:{
         backgroundColor: '#c97b06', //bubble design
         borderRadius:30,
         width:"70%",
         height:45,
-        marginBottom:20,
         alignItems:"center",
       },
       TextInput:{ //font design
@@ -69,14 +83,17 @@ const styles = StyleSheet.create({
       prompt:{
         height: "20%",
         width:"80%",
-        backgroundColor:"lightgrey",
-        borderRadius:25,
+        backgroundColor:"white",
+        borderRadius:10,
         alignContent: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
       },
       pText:{
         fontSize:20,
-        textAlign:'center'
+        textAlign:'center',
+        fontFamily:"Helvetica",
+        marginHorizontal:10,
+
       },
 
 })

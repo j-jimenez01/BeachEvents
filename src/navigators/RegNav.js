@@ -12,17 +12,14 @@ export default function RegNav() {
 
     <Stack.Navigator initialRouteName={routes.REGISTER} //creates navigator for login
     >
-      <Stack.Group>
+      <Stack.Group >
       <Stack.Screen name={routes.REGISTER} component={Register} options={{headerShown:false}} //login page
+      />
+      
+      <Stack.Screen options={{headerShown:false}} name={routes.CONFIRM} component={Confirm} //forgot page 
       />
       </Stack.Group>
 
-      <Stack.Group screenOptions={{presentation:"modal"}} //pop up
-      >
-
-      <Stack.Screen name={routes.FORGOT_PASSWORD} component={Confirm} //forgot page
-       />
-      </Stack.Group>
 
     </Stack.Navigator>
     

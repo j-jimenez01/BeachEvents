@@ -12,6 +12,7 @@ export {default as SubOrg} from '../screens/Home/SubOrg';
 // Auth Screens
 export {default as Login} from '../screens/Auth/Login';
 export {default as Register} from '../screens/Auth/Register';
+export {default as Confirm} from '../screens/Auth/Confirm';
 export {default as Forgot} from '../screens/Auth/Forgot';
 
 //navigators
@@ -20,4 +21,5 @@ export {default as Change} from '../navigators/Change';
 export {default as LogNav} from '../navigators/LogNav';
 export {default as MapNav} from '../navigators/MapNav';
 export {default as SubNav} from '../navigators/SubNav';
+export {default as RegNav} from '../navigators/RegNav';
 
