@@ -3,6 +3,7 @@ export default {
     LOGIN: 'Login',
     REGISTER: 'Sign Up',
     FORGOT_PASSWORD: 'Forgot Password',
+    CONFIRM:"Confirmation",
     HOME: 'Home',
     MENU_DRAWER: 'Menu Drawer',
     EVENTS: 'Events',

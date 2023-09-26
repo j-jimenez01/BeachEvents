@@ -1,13 +1,10 @@
 import React,{useState} from 'react';
 import { StyleSheet, Text, View,Image, TextInput, TouchableOpacity, StatusBar, SafeAreaView, Button } from 'react-native';
 import color from '../../config/color';
-import { ceil } from 'react-native-reanimated';
-import routes from '../../config/routes';
 
 
 export default function Register({navigation}){
   //initialize the variables
-    const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [confirmPassword,setConfirmPassword] = useState('');
     return(
@@ -21,14 +18,7 @@ export default function Register({navigation}){
          
         </View>
 
-        <View style={styles.inputView}>
-        <TextInput //input bubble for email
-        style={styles.TextInput}
-        placeholder="CSULB Email"
-        placeholderTextColor={"#000000"}
-        onChangeText={(email) => setEmail(email)}
-        />
-      </View>
+       
       {/* password design */}
       <View style={styles.inputView}>
       <TextInput
@@ -50,7 +40,7 @@ export default function Register({navigation}){
       </View>
       <Button
           title='Confirm'
-          onPress={()=> navigation.navigate(routes.CONFIRM)}
+          onPress={()=> navigation.goBack()}
       />
         </View>
     )

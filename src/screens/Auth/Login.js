@@ -46,12 +46,12 @@ function Login(props) {
         </View>
       </View>
 
-        <TouchableOpacity style={styles.login} onPress={() => navigation.navigate(routes.MENU_NAVIGATOR)} // Login button, will redirect to the home page when clicked
+        <View style={styles.login}// Login button, will redirect to the home page when clicked
         >
-          <Text>Login 
+          <Button color={"black"}  title='Login' onPress={() => navigation.navigate(routes.MENU_NAVIGATOR)}> 
 
-          </Text>
-        </TouchableOpacity>
+          </Button>
+        </View>
     </SafeAreaView>
   );
 }
@@ -59,7 +59,7 @@ function Login(props) {
 const styles = StyleSheet.create({
   container :{ //background
     flex:1,
-    backgroundColor: "#3A3A38",
+    backgroundColor: "#171717",
     alignItems:"center",
     justifyContent:"space-evenly",
 
@@ -67,13 +67,14 @@ const styles = StyleSheet.create({
   logo:{ //logo dimensions
     height: "20%",
     width:"30%",
-    backgroundColor: "black",
+    backgroundColor: "#26282A",
 
   },
   input:{  //border for input bubbles
     width:"90%",
     height:"40%",
     backgroundColor: "lightgrey",
+  
     alignItems:"center",
     borderRadius:25,
     justifyContent:"space-evenly",
@@ -87,21 +88,26 @@ const styles = StyleSheet.create({
     flexDirection:"row"
   },
   bubble:{ // user input bubble
-    width:"100%",
+    width:"99%",
     height:"20%",
     backgroundColor: color.third,
     borderRadius:25,
     alignItems:"center",
-    justifyContent:"center"
+    justifyContent:"center",
+    
   },
   login:{ // login button
-    width:"100%",
-    height:"8%",
+    width:"30%",
+    height:"6%",
     borderRadius:25,
     backgroundColor: color.third,
     alignItems:"center",
     justifyContent:"center",
-  }
+  },
+  Logtext:{
+    fontSize: 15,
+    color:"black"
+  },
 })
 
 export default Login;
