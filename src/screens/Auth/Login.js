@@ -15,7 +15,7 @@ function Login(props) {
   return (
     <SafeAreaView style={styles.container}>
       <Image style={styles.logo}
-        source={ require("../../assests/icon.png")} //our logo
+        source={ require("../../assests/Logo.png")} //our logo
       />
       <View style={styles.input}>
         <View style={styles.bubble}>
@@ -67,6 +67,8 @@ const styles = StyleSheet.create({
   logo:{ //logo dimensions
     height: "20%",
     width:"30%",
+    backgroundColor: "#3A3A38",
+
   },
   input:{  //border for input bubbles
     width:"90%",
