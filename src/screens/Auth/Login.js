@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   bubble:{ // user input bubble
     width:"99%",
     height:"95%",
-    backgroundColor: color.third,
+    backgroundColor: "#FFAD01",
     borderRadius:25,
     alignItems:"center",
     justifyContent:"center",
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     width:"30%",
     height:"6%",
     borderRadius:25,
-    backgroundColor: color.third,
+    backgroundColor: "#FFAD01",
     alignItems:"center",
     justifyContent:"center",
   },
