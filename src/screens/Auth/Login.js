@@ -18,6 +18,7 @@ function Login(props) {
         source={ require("../../assests/icon.png")} //our logo
       />
       <View style={styles.input}>
+        <View style={styles.bubble2}>
         <View style={styles.bubble}>
         <TextInput
           placeholder='Email' //bubble to enter email
@@ -26,6 +27,8 @@ function Login(props) {
         />
 
         </View>
+        </View>
+        <View style={styles.bubble2} >
         <View style={styles.bubble} >
         <TextInput
           placeholder='Password' //bubble for password
@@ -33,6 +36,7 @@ function Login(props) {
           onChangeText={(password) => setPassword(password)} //stores user's input to password
         />
 
+        </View>
         </View>
         <View resizeMethod="contain" style ={styles.extra}>
           <Button
@@ -65,20 +69,18 @@ const styles = StyleSheet.create({
 
   },
   logo:{ //logo dimensions
-    height: "20%",
-    width:"30%",
-    backgroundColor: "#26282A",
+    height: "25%",
+    width:"35%",
 
   },
   input:{  //border for input bubbles
-    width:"90%",
-    height:"40%",
+    width:"80%",
+    height:"36%",
     backgroundColor: "lightgrey",
   
     alignItems:"center",
     borderRadius:25,
     justifyContent:"space-evenly",
-
   },
   extra:{ // border for sign up and forgot paswword
     width:"80%",
@@ -89,9 +91,18 @@ const styles = StyleSheet.create({
   },
   bubble:{ // user input bubble
     width:"99%",
-    height:"20%",
+    height:"95%",
     backgroundColor: color.third,
     borderRadius:25,
+    alignItems:"center",
+    justifyContent:"center",
+    
+  },
+  bubble2:{ // user input bubble
+    width:"99%",
+    height:"21%",
+    backgroundColor: color.primary,
+    borderRadius:27,
     alignItems:"center",
     justifyContent:"center",
     
