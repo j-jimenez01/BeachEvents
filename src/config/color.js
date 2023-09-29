@@ -3,6 +3,7 @@ export default{
     primary: "#171717",
     secondary: "#3d3c3e",
     third: "#ea8d1d",
-    yellow: "#ffd966",
+    yellow: "#FFAD01",
+    
 
 }

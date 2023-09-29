@@ -14,6 +14,9 @@ export default function Register({navigation}){
 
         <View style={styles.container}>
 
+          <Image style={styles.logo}
+                  source={ require("../../assests/Yticon.png")} //our logo
+                />
         <View style={styles.prompt}>
           <Text style={styles.pText}>
             Please enter your CSULB email below: </Text>
@@ -44,15 +47,16 @@ const styles = StyleSheet.create({
         backgroundColor: color.primary,//changing background color
         alignItems: 'center',
         justifyContent: 'center',
-        rowGap:70,
+        rowGap:50,
       },
       inputView:{
-        backgroundColor: '#c97b06', //bubble design
+        backgroundColor: color.yellow, //bubble design
         borderRadius:30,
         width:"80%",
         height:"7%",
-        marginBottom:20,
         alignItems:"center",
+        borderWidth:1,
+        borderColor:"white",
       },
       TextInput:{ //font design
         height: 50,
@@ -65,6 +69,8 @@ const styles = StyleSheet.create({
         height: "20%",
         width:"80%",
         backgroundColor:"white",
+        borderColor:color.yellow,
+        borderWidth:5,
         borderRadius:10,
         alignContent: 'center',
         justifyContent: 'space-evenly',
@@ -75,6 +81,11 @@ const styles = StyleSheet.create({
         textAlign:'center',
         fontFamily:"Helvetica"
 
+      },
+      logo:{ //logo dimensions
+        height: "25%",
+        width:"38%",
+    
       },
 
 })

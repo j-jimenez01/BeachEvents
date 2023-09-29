@@ -15,10 +15,9 @@ function Login(props) {
   return (
     <SafeAreaView style={styles.container}>
       <Image style={styles.logo}
-        source={ require("../../assests/icon.png")} //our logo
+        source={ require("../../assests/Yticon.png")} //our logo
       />
       <View style={styles.input}>
-        <View style={styles.bubble2}>
         <View style={styles.bubble}>
         <TextInput
           placeholder='Email' //bubble to enter email
@@ -27,8 +26,6 @@ function Login(props) {
         />
 
         </View>
-        </View>
-        <View style={styles.bubble2} >
         <View style={styles.bubble} >
         <TextInput
           placeholder='Password' //bubble for password
@@ -36,7 +33,6 @@ function Login(props) {
           onChangeText={(password) => setPassword(password)} //stores user's input to password
         />
 
-        </View>
         </View>
         <View resizeMethod="contain" style ={styles.extra}>
           <Button
@@ -70,14 +66,15 @@ const styles = StyleSheet.create({
   },
   logo:{ //logo dimensions
     height: "25%",
-    width:"35%",
+    width:"40%",
 
   },
   input:{  //border for input bubbles
     width:"80%",
     height:"36%",
     backgroundColor: "lightgrey",
-  
+    borderWidth:2,
+    borderColor: "#FDB813",
     alignItems:"center",
     borderRadius:25,
     justifyContent:"space-evenly",
@@ -91,22 +88,16 @@ const styles = StyleSheet.create({
   },
   bubble:{ // user input bubble
     width:"99%",
-    height:"95%",
+    height:"20%",
     backgroundColor: "#FFAD01",
     borderRadius:25,
+    borderWidth:1,
+    borderColor: color.primary,
     alignItems:"center",
     justifyContent:"center",
     
   },
-  bubble2:{ // user input bubble
-    width:"99%",
-    height:"21%",
-    backgroundColor: color.primary,
-    borderRadius:27,
-    alignItems:"center",
-    justifyContent:"center",
-    
-  },
+
   login:{ // login button
     width:"30%",
     height:"6%",

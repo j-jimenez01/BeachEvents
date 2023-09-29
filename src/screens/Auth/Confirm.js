@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import { StyleSheet, Text, View,Image, TextInput, TouchableOpacity, StatusBar, SafeAreaView, Button } from 'react-native';
 import color from '../../config/color';
 import routes from '../../config/routes';
+import { ceil } from 'react-native-reanimated';
 
 
 export default function Register({navigation}){
@@ -13,6 +14,10 @@ export default function Register({navigation}){
 
         <View style={styles.container}>
 
+          <Image style={styles.logo}
+                            source={ require("../../assests/Yticon.png")} //our logo
+                          />
+
         <View style={styles.prompt}>
           <Text style={styles.pText}>
             A 5 digit code has been sent to the email entered.
@@ -22,36 +27,39 @@ export default function Register({navigation}){
  }}> NOTE: Check spam folder if you can not find the email with the code</Text>
         </View>
 
-       
-      {/* password design */}
-      <View style={styles.inputView}>
-      <TextInput
-        style={styles.TextInput}
-        placeholder="Confirmation Code"
-        placeholderTextColor={"#000000"}
-        secureTextEntry={true}
-        onChangeText={(code) => setCode(code)}
-        />
+       <View style={styles.enter}>
+        {/* confirmation design */}
+        <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Confirmation Code"
+          placeholderTextColor={"#000000"}
+          secureTextEntry={true}
+          onChangeText={(code) => setCode(code)}
+          />
+          </View>
+
+        <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Password"
+          placeholderTextColor={"#000000"}
+          secureTextEntry={true}
+          onChangeText={(password) => setPassword(password)}
+          />
+        </View>
+        {/* confirm pw */}
+        <View style={styles.inputView}>
+          <TextInput
+          style={styles.TextInput}
+          placeholder='Confirm Password'
+          placeholderTextColor={'#000000'}
+          secureTextEntry={true}
+          onChange={(confirmPassword)=>setConfirmPassword(confirmPassword)}/>
         </View>
 
-      <View style={styles.inputView}>
-      <TextInput
-        style={styles.TextInput}
-        placeholder="Password"
-        placeholderTextColor={"#000000"}
-        secureTextEntry={true}
-        onChangeText={(password) => setPassword(password)}
-        />
       </View>
-      {/* confirm pw */}
-      <View style={styles.inputView}>
-        <TextInput
-        style={styles.TextInput}
-        placeholder='Confirm Password'
-        placeholderTextColor={'#000000'}
-        secureTextEntry={true}
-        onChange={(confirmPassword)=>setConfirmPassword(confirmPassword)}/>
-      </View>
+      
       <Button
           title='Confirm'
           onPress={()=> navigation.navigate(routes.LOGIN)}
@@ -64,15 +72,17 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: color.primary,//changing background color
         alignItems: 'center',
-        justifyContent: 'center',
         rowGap:40,
+        paddingTop: 15
       },
       inputView:{
-        backgroundColor: '#c97b06', //bubble design
+        backgroundColor: color.yellow, //bubble design
         borderRadius:30,
         width:"70%",
         height:45,
         alignItems:"center",
+        borderWidth:1,
+        borderColor:"white",
       },
       TextInput:{ //font design
         height: 50,
@@ -87,6 +97,8 @@ const styles = StyleSheet.create({
         borderRadius:10,
         alignContent: 'center',
         justifyContent: 'space-evenly',
+        borderWidth:2,
+        borderColor: color.yellow,
       },
       pText:{
         fontSize:20,
@@ -95,5 +107,17 @@ const styles = StyleSheet.create({
         marginHorizontal:10,
 
       },
+      logo:{ //logo dimensions
+        height: "25%",
+        width:"38%",
+    
+      },
+      enter:{
+        height: "20%",
+        width:"100%",
+        alignItems: 'center',
+        justifyContent: 'center',
+        rowGap: 10
+      }
 
 })
