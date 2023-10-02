@@ -22,4 +22,5 @@ export {default as LogNav} from '../navigators/LogNav';
 export {default as MapNav} from '../navigators/MapNav';
 export {default as SubNav} from '../navigators/SubNav';
 export {default as RegNav} from '../navigators/RegNav';
+export {default as ForgotNav} from '../navigators/ForgotNav';
 

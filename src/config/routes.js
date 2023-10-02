@@ -16,4 +16,5 @@ export default {
     SUBSCRIBE: 'Subscribed To',
     SUBORG: 'Organization Events',
     MAPNAV: 'Map',
+
   };
