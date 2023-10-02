@@ -17,7 +17,9 @@ export default function MenuNav() {
         drawerActiveTintColor: color.third,
         drawerInactiveTintColor: "#fff",
         headerStyle:{backgroundColor: color.secondary},
-         drawerStyle: { backgroundColor: color.secondary} }}>
+         drawerStyle: { backgroundColor: color.secondary} }}
+         backBehavior='initialRoute'
+         >
         
 
         <Drawer.Screen name={routes.HOME} component={MapNav} //All the paged in the drawer
