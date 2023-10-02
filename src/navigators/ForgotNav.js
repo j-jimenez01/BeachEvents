@@ -5,12 +5,15 @@ import { Confirm, Forgot } from "../screens";
 
 const Stack = createStackNavigator();
 
-<Stack.Navigator initialRouteName={routes.FORGOT_PASSWORD}>
-    <Stack.Screen name= {routes.FORGOT_PASSWORD} component={Forgot}>
-
-    </Stack.Screen>
-    <Stack.Screen name= {routes.CONFIRM} component={Confirm}>
-
-    </Stack.Screen>
+export default function ForgotNav(){
     
+    
+return(    
+<Stack.Navigator initialRouteName={routes.FORGOT_PASSWORD}>
+
+    <Stack.Screen name= {routes.FORGOT_PASSWORD} component={Forgot}/>
+    <Stack.Screen name= {routes.CONFIRM} component={Confirm}/>
+
 </Stack.Navigator>
+);}
+

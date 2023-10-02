@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import routes from '../config/routes';
-import { Forgot, Login, MenuNav, Register, RegNav} from '../screens';
+import { Forgot, Login, MenuNav, Register, RegNav, ForgotNav} from '../screens';
 
 
 const Stack = createStackNavigator();
@@ -20,7 +20,7 @@ export default function LogNav() {
       <Stack.Group screenOptions={{presentation:"modal"}} //pop up
       >
 
-      <Stack.Screen name={routes.FORGOT_PASSWORD} component={Forgot} //forgot page
+      <Stack.Screen name={routes.FORGOT_PASSWORD} component={ForgotNav} //forgot page
        />
      
       <Stack.Screen name={routes.REGISTER} component={RegNav} //Register page

@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import color from '../../config/color';
 import routes from '../../config/routes';
 
-function Forgot({navigation}) {
+export default function Forgot({navigation}) {
     const [current,setCurrent] = useState('');
     const [newpass,setPass] = useState('');
     const [again,setAgain] = useState('');
@@ -141,4 +141,3 @@ const styles = StyleSheet.create({
       
     }
   });
-export default Forgot;
