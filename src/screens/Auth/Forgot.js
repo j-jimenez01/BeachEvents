@@ -2,6 +2,7 @@ import {React,useState} from 'react';
 import { Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import { StyleSheet } from 'react-native';
 import color from '../../config/color';
+import routes from '../../config/routes';
 
 function Forgot({navigation}) {
     const [current,setCurrent] = useState('');
@@ -31,7 +32,7 @@ function Forgot({navigation}) {
                         />
                 </View>
                 
-             <TouchableOpacity onPress={()=> navigation.goBack()} style={styles.loginbtn}>
+             <TouchableOpacity onPress={()=> navigation.navigate(routes.CONFIRM)} style={styles.loginbtn}>
           <Text style={styles.loginText}>Confirm </Text>
         </TouchableOpacity>
             {/* password design */}
