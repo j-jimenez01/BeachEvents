@@ -141,7 +141,7 @@ function Home({navigation}) {
                         })
                         }
                     >
-                        <MaterialIcons name="location-city" size={40} color="black"/>
+                        <Image source={require("../../assests/pin.png")}  />
                     </TouchableOpacity>
                     </View>
                 
