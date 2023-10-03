@@ -19,7 +19,7 @@ function Change() {
             <Stack.Screen
                 name={routes.NEW_PASSWORD}
                 component={NewPass}// goes to New password page
-                options={{headerShown:false}}
+                options={{headerShown:true}}
                 
             />
         </Stack.Navigator>
