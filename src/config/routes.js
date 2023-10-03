@@ -8,7 +8,7 @@ export default {
     MENU_DRAWER: 'Menu Drawer',
     EVENTS: 'Events',
     ORGANIZATION:"Organization",
-    NEW_PASSWORD:"New Password",
+    NEW_PASSWORD:"Change Password",
     ACCOUNT_SETTINGS: 'Account Settings',
     CHANGE: 'Change',
     LOGIN_NAV:'Login Navigator',

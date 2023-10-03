@@ -38,7 +38,6 @@ function AccountSetting({navigation}) {
 
     const access = async()=> {useEffect(() =>{
         (async()=> {
-            console.log("wowooowowoow");
             const {status} = await ImagePicker.getMediaLibraryPermissionsAsync();
             setPerm(status);
             console.log("new status:", status);
@@ -101,7 +100,7 @@ function AccountSetting({navigation}) {
 }
 const styles = StyleSheet.create({
     back:{ //background
-        backgroundColor: color.third,
+        backgroundColor: color.primary,
         flex:1,
         justifyContent:"center",
         alignItems:"center",
@@ -117,9 +116,11 @@ const styles = StyleSheet.create({
     imageBorder:{ //border where the profile pic willl be placed
         width:"53%",
         height:"30%",
-        borderRadius:25,
-        backgroundColor: color.third,
+        borderRadius:20,
+        backgroundColor: "#ffd",
         justifyContent: 'center',
+        borderWidth:2,
+        borderColor: color.yellow,
         alignItems: 'center',
         paddingTop: "2.5%",
         paddingBottom: "2.5%",
@@ -133,8 +134,10 @@ const styles = StyleSheet.create({
     logo:{
         flex:1,
         width:'90%',
-        height: '90%',
-        borderRadius: 25
+        height: '100%',
+        borderWidth:2, 
+        borderColor: color.primary,
+        borderRadius: 18
     }
 
 })
