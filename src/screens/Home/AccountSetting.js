@@ -86,7 +86,7 @@ function AccountSetting({navigation}) {
                 </View>
 
                 <View style= {styles.camera}>
-                    <Image source={require("../../assests/camera.png")}/>
+                    <Image style={styles.icon} source={require("../../assests/camera.png")}/>
                 </View>
 
             </View>
@@ -161,6 +161,13 @@ const styles = StyleSheet.create({
         position: "absolute",
         right: 12,
         bottom:12,
+        alignItems:"center",
+        justifyContent:"center"
+    },
+    icon:{
+        width:"80%",
+        height:"60%",
+
     }
 
 })
