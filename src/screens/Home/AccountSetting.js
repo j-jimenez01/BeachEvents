@@ -14,6 +14,9 @@ function AccountSetting({navigation}) {
     const[image, setImage] = useState(null);
 
     const [perm, setPerm] = useState(null);
+    const [permCam, setCamPerm] = useState(null);
+
+
     const [imgUrl, setImgUrl] = useState(false);
     
     useEffect(() =>{
@@ -35,6 +38,26 @@ function AccountSetting({navigation}) {
             // const {status} = ImagePicker.requestMediaLibraryPermissionsAsync();
 
         }, []);
+
+    useEffect(() =>{
+            (async()=> {
+                if(Platform.OS === "ios"){
+                    const {status} = await ImagePicker.requestCameraPermissionsAsync();
+                    console.log("status:",status);
+                    if(status !== "granted"){
+                        setCamPerm("denied");
+                        alert("Permission not granted")
+                        console.log("perm:",permCam)
+                    }
+                    else{
+                        setCamPerm("granted");
+                        console.log("perm:",permCam)
+                    }
+                }
+            })();
+            // const {status} = ImagePicker.requestMediaLibraryPermissionsAsync();
+
+        }, []);
         
 
     const access = async()=> {useEffect(() =>{
@@ -43,6 +66,15 @@ function AccountSetting({navigation}) {
             setPerm(status);
             console.log("new status:", status);
             console.log("new perm:", perm);
+        })();
+    })};
+
+    const accessCam = async()=> {useEffect(() =>{
+        (async()=> {
+            const {status} = await ImagePicker.getCameraPermissionsAsync();
+            setCamPerm(status);
+            console.log("new status:", status);
+            console.log("new perm:", permCam);
         })();
     })};
 
@@ -70,6 +102,24 @@ function AccountSetting({navigation}) {
             access();
             
     }}
+    const camImage = async() =>{
+        
+        
+        if(permCam == "granted"){
+            let picture = await ImagePicker.launchCameraAsync();
+            console.log("result", picture)
+
+
+            if(!picture.canceled){
+                setImgUrl(true)
+                setImage(picture.uri)
+            }
+        }
+        else{
+            Linking.openSettings();
+            access();
+            
+    }}
 
     
 
@@ -80,13 +130,15 @@ function AccountSetting({navigation}) {
             <View style= {styles.pfp}>
 
                 <View style ={styles.imageBorder}>
-                    <Image  style ={styles.logo}
-                    source={imgUrl ? {uri: image}: require("../../assests/user.png")} //our logo
+                    
+                        <Image  style ={styles.logo}
+                        source={imgUrl ? {uri: image}: require("../../assests/user.png")} //our logo
                 />
                 </View>
-
                 <View style= {styles.camera}>
-                    <Image style={styles.icon} source={require("../../assests/camera.png")}/>
+                    <TouchableOpacity style={styles.click} onPress={camImage}>
+                        <Image style={styles.icon} source={require("../../assests/camera.png")}/>
+                    </TouchableOpacity>
                 </View>
 
             </View>
@@ -162,13 +214,24 @@ const styles = StyleSheet.create({
         right: 12,
         bottom:12,
         alignItems:"center",
-        justifyContent:"center"
+        justifyContent:"center",
+        flex:1,
     },
     icon:{
         width:"80%",
+        height:"80%",
+        position:'absolute',
+        left: 2,
+        top:2,
+
+    },
+    click:{
+        width:"80%",
         height:"60%",
+        position:'absolute'
 
     }
+
 
 })
 
