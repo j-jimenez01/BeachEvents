@@ -4,6 +4,7 @@ import color from '../../config/color';
 import routes from '../../config/routes';
 import * as ImagePicker from "expo-image-picker";
 import { Linking } from 'react-native';
+import { Alert } from 'react-native';
 
 //Account setting page where user can change password or change profile pic
 
@@ -46,6 +47,8 @@ function AccountSetting({navigation}) {
     })};
 
 
+
+
     const pickImage = async() =>{
         
         
@@ -72,15 +75,21 @@ function AccountSetting({navigation}) {
 
     return (
 
-        <SafeAreaView style ={styles.back}>
 
-            <View style ={styles.mainBorder}>
+        <SafeAreaView style ={styles.mainBorder}>
+            <View style= {styles.pfp}>
 
                 <View style ={styles.imageBorder}>
                     <Image  style ={styles.logo}
                     source={imgUrl ? {uri: image}: require("../../assests/user.png")} //our logo
                 />
                 </View>
+
+                <View style= {styles.camera}>
+                    <Image source={require("../../assests/camera.png")}/>
+                </View>
+
+            </View>
                     <Button 
                     title="Change Password" //change password button
                     onPress={()=> navigation.navigate(routes.NEW_PASSWORD)} />
@@ -92,30 +101,34 @@ function AccountSetting({navigation}) {
                     title = "Change Profile Picture" //change picture button
                     onPress={pickImage}
                 />
+
+
+
+
                 </View>
                 
-            </View>
         </SafeAreaView>
     );
 }
 const styles = StyleSheet.create({
-    back:{ //background
-        backgroundColor: color.primary,
-        flex:1,
-        justifyContent:"center",
-        alignItems:"center",
-    }
-    ,
+
+    
     mainBorder:{ //main border holds everything
         width:"100%",
         height:"100%",
+        flex:1,
         backgroundColor:color.primary,
         alignItems:"center",
         justifyContent:"space-evenly",
     },
+    pfp:{
+        width:"63%",
+        height:"35%",
+        alignItems: "center"
+    },
     imageBorder:{ //border where the profile pic willl be placed
-        width:"53%",
-        height:"30%",
+        width:"90%",
+        height:"90%",
         borderRadius:20,
         backgroundColor: "#ffd",
         justifyContent: 'center',
@@ -124,6 +137,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: "2.5%",
         paddingBottom: "2.5%",
+        flexWrap:"nowrap"
     },
     settingBorder:{ //border for the options to change password or picture
         width: "100%",
@@ -138,6 +152,15 @@ const styles = StyleSheet.create({
         borderWidth:2, 
         borderColor: color.primary,
         borderRadius: 18
+    },
+    camera:{
+        width:"13%",
+        height:"13%",
+        backgroundColor:color.yellow,
+        borderRadius: 20,
+        position: "absolute",
+        right: 12,
+        bottom:12,
     }
 
 })
