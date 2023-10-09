@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import { SafeAreaView,View, Text, StyleSheet,Button,Image } from 'react-native';
+import { SafeAreaView,View, Text, StyleSheet,Button,Image,Alert } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { TouchableOpacity } from 'react-native';
 import color from '../../config/color';
@@ -8,14 +8,46 @@ import routes from '../../config/routes';
 
 function Login(props) {
   {/*initializes the keywords that will be used to store info*/}
-  const {navigation} = props;
-  const [email, setEmail] =useState(null);
-  const [password, setPassword] = useState(null);
+  const { navigation } = props;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  // API endpoint for authenticate
+  const apiEndpoint = 'http://0.0.0.0:3000/api';
+
+  const handleLogin = async () => {
+    try {
+      // send post request to authenticate the user
+      const response = await fetch(apiEndpoint+'/authenticate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if (response.ok) {
+        // Authentication successful, navigate to the home page
+        navigation.navigate(routes.MENU_NAVIGATOR);
+      } else {
+        const errorData = await response.json();
+        // Display an error message to the user (enters invalid email or password)
+        Alert.alert('Login Failed',"Invalid Email or Password.");
+        console.error('Authentication failed:', errorData.message);
+      }
+    } catch (error) {
+      // Handle any unexpected errors that occur during authentication
+      console.error('Authentication failed:', error);
+    }
+  };
+
 
   return (
     <SafeAreaView style={styles.container}>
       <Image style={styles.logo}
-        source={ require("../../assests/icon.png")} //our logo
+        source={ require("../../assests/Yticon.png")} //our logo
       />
       <View style={styles.input}>
         <View style={styles.bubble}>
@@ -31,6 +63,7 @@ function Login(props) {
           placeholder='Password' //bubble for password
           placeholderTextColor={color.primary}
           onChangeText={(password) => setPassword(password)} //stores user's input to password
+          secureTextEntry={true} // Mask the password input
         />
 
         </View>
@@ -46,12 +79,15 @@ function Login(props) {
         </View>
       </View>
 
-        <TouchableOpacity style={styles.login} onPress={() => navigation.navigate(routes.MENU_NAVIGATOR)} // Login button, will redirect to the home page when clicked
+        <View style={styles.login}// Login button, will redirect to the home page when clicked
         >
-          <Text>Login 
+          {/* <Button color={"black"}  title='Login' onPress={() => navigation.navigate(routes.MENU_NAVIGATOR)}>  */}
+          <TouchableOpacity  onPress={handleLogin}>
+        <Text>Login</Text>
+      </TouchableOpacity>
 
-          </Text>
-        </TouchableOpacity>
+          {/* </Button> */}
+        </View>
     </SafeAreaView>
   );
 }
@@ -59,23 +95,25 @@ function Login(props) {
 const styles = StyleSheet.create({
   container :{ //background
     flex:1,
-    backgroundColor: color.primary,
+    backgroundColor: "#171717",
     alignItems:"center",
     justifyContent:"space-evenly",
 
   },
   logo:{ //logo dimensions
-    height: "20%",
-    width:"30%",
+    height: "25%",
+    width:"40%",
+
   },
   input:{  //border for input bubbles
-    width:"90%",
-    height:"40%",
+    width:"80%",
+    height:"36%",
     backgroundColor: "lightgrey",
+    borderWidth:2,
+    borderColor: "#FDB813",
     alignItems:"center",
     borderRadius:25,
     justifyContent:"space-evenly",
-
   },
   extra:{ // border for sign up and forgot paswword
     width:"80%",
@@ -85,21 +123,29 @@ const styles = StyleSheet.create({
     flexDirection:"row"
   },
   bubble:{ // user input bubble
-    width:"100%",
+    width:"99%",
     height:"20%",
-    backgroundColor: color.third,
+    backgroundColor: "#FFAD01",
     borderRadius:25,
-    alignItems:"center",
-    justifyContent:"center"
-  },
-  login:{ // login button
-    width:"100%",
-    height:"8%",
-    borderRadius:25,
-    backgroundColor: color.third,
+    borderWidth:1,
+    borderColor: color.primary,
     alignItems:"center",
     justifyContent:"center",
-  }
+    
+  },
+
+  login:{ // login button
+    width:"30%",
+    height:"6%",
+    borderRadius:25,
+    backgroundColor: "#FFAD01",
+    alignItems:"center",
+    justifyContent:"center",
+  },
+  Logtext:{
+    fontSize: 15,
+    color:"black"
+  },
 })
 
 export default Login;
