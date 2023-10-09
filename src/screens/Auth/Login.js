@@ -63,6 +63,7 @@ function Login(props) {
           placeholder='Password' //bubble for password
           placeholderTextColor={color.primary}
           onChangeText={(password) => setPassword(password)} //stores user's input to password
+          secureTextEntry={true} // Mask the password input
         />
 
         </View>
