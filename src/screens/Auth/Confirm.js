@@ -1,15 +1,53 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,Image, TextInput, TouchableOpacity, StatusBar, SafeAreaView, Button } from 'react-native';
+import { StyleSheet, Text, View,Image, TextInput, TouchableOpacity, StatusBar, SafeAreaView, Button,Alert } from 'react-native';
 import color from '../../config/color';
 import routes from '../../config/routes';
 import { ceil } from 'react-native-reanimated';
 
 
-export default function Register({navigation}){
+export default function Register({navigation,route}){
   //initialize the variables
-    const [code,setCode] = useState('');
+    const [verificationCode, setVerificationCode] = useState('');
     const [password,setPassword] = useState('');
     const [confirmPassword,setConfirmPassword] = useState('');
+    const {email} = route.params;
+
+    // API endpoint for registration and verification
+    const apiEndpoint = 'http://0.0.0.0:3000/api'; // For school
+
+    const handleRegister = async () => {
+      try {
+        // Check if the password and confirm password match
+        if (password !== confirmPassword) {
+          Alert.alert('Password Mismatch', 'Password and Confirm Password do not match.');
+          return;
+        }
+  
+        const response = await fetch(apiEndpoint + '/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            password,
+            verificationCode,
+          }),
+        });
+  
+        if (response.ok) {
+          // Registration successful, navigate to the next screen
+          Alert.alert('Registration Succesful', 'Sign in.');
+          navigation.goBack();
+        } else {
+          const errorData = await response.json();
+          Alert.alert('Registration Error', errorData.message);
+        }
+      } catch (error) {
+        console.error('Registration failed:', error);
+        Alert.alert('Registration Error', 'An error occurred during registration.');
+      }
+    };
     return(
 
         <View style={styles.container}>
@@ -32,10 +70,10 @@ export default function Register({navigation}){
         <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Confirmation Code"
+          placeholder="Verification Code"
           placeholderTextColor={"#000000"}
           secureTextEntry={true}
-          onChangeText={(code) => setCode(code)}
+          onChangeText={(text) => setVerificationCode(text)}
           />
           </View>
 
@@ -45,24 +83,28 @@ export default function Register({navigation}){
           placeholder="Password"
           placeholderTextColor={"#000000"}
           secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
+          onChangeText={(text) => setPassword(text)}
           />
         </View>
         {/* confirm pw */}
         <View style={styles.inputView}>
-          <TextInput
+        <TextInput
           style={styles.TextInput}
           placeholder='Confirm Password'
-          placeholderTextColor={'#000000'}
+          placeholderTextColor='#000000'
           secureTextEntry={true}
-          onChange={(confirmPassword)=>setConfirmPassword(confirmPassword)}/>
+          onChangeText={(text) => setConfirmPassword(text)}
+/>
         </View>
 
       </View>
       
       <Button
           title='Confirm'
-          onPress={()=> navigation.navigate(routes.LOGIN)}
+          onPress={() => {
+            handleRegister();
+          navigation.navigate(routes.LOGIN);
+        }}
       />
         </View>
     )

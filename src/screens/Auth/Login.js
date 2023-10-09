@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import { SafeAreaView,View, Text, StyleSheet,Button,Image } from 'react-native';
+import { SafeAreaView,View, Text, StyleSheet,Button,Image,Alert } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { TouchableOpacity } from 'react-native';
 import color from '../../config/color';
@@ -8,9 +8,41 @@ import routes from '../../config/routes';
 
 function Login(props) {
   {/*initializes the keywords that will be used to store info*/}
-  const {navigation} = props;
-  const [email, setEmail] =useState(null);
-  const [password, setPassword] = useState(null);
+  const { navigation } = props;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  // API endpoint for authenticate
+  const apiEndpoint = 'http://0.0.0.0:3000/api';
+
+  const handleLogin = async () => {
+    try {
+      // send post request to authenticate the user
+      const response = await fetch(apiEndpoint+'/authenticate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if (response.ok) {
+        // Authentication successful, navigate to the home page
+        navigation.navigate(routes.MENU_NAVIGATOR);
+      } else {
+        const errorData = await response.json();
+        // Display an error message to the user (enters invalid email or password)
+        Alert.alert('Login Failed',"Invalid Email or Password.");
+        console.error('Authentication failed:', errorData.message);
+      }
+    } catch (error) {
+      // Handle any unexpected errors that occur during authentication
+      console.error('Authentication failed:', error);
+    }
+  };
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -48,9 +80,12 @@ function Login(props) {
 
         <View style={styles.login}// Login button, will redirect to the home page when clicked
         >
-          <Button color={"black"}  title='Login' onPress={() => navigation.navigate(routes.MENU_NAVIGATOR)}> 
+          {/* <Button color={"black"}  title='Login' onPress={() => navigation.navigate(routes.MENU_NAVIGATOR)}>  */}
+          <TouchableOpacity  onPress={handleLogin}>
+        <Text>Login</Text>
+      </TouchableOpacity>
 
-          </Button>
+          {/* </Button> */}
         </View>
     </SafeAreaView>
   );
