@@ -2,6 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import routes from '../config/routes';
 import { Forgot, Login, MenuNav, Register, RegNav, ForgotNav} from '../screens';
+import { BackHandler } from 'react-native';
 
 
 const Stack = createStackNavigator();
@@ -10,10 +11,10 @@ export default function LogNav() {
 
   return (
 
-    <Stack.Navigator initialRouteName={routes.LOGIN} //creates navigator for login
+    <Stack.Navigator initialRouteName={routes.LOGIN} screenOptions={BackHandler} //creates navigator for login
     >
       <Stack.Group>
-      <Stack.Screen name={routes.LOGIN} component={Login} options={{headerShown:false}} //login page
+      <Stack.Screen name={routes.LOGIN} component={Login} options={{headerShown:false, gestureEnabled:false}} //login page
       />
       </Stack.Group>
 
@@ -30,7 +31,7 @@ export default function LogNav() {
       
       <Stack.Group>
 
-      <Stack.Screen name={routes.MENU_NAVIGATOR} component={MenuNav} options={{headerShown:false}}  //Home page with the menu navigator
+      <Stack.Screen name={routes.MENU_NAVIGATOR} component={MenuNav} options={{headerShown:false,  gestureEnabled:false}}  //Home page with the menu navigator
       />
       </Stack.Group>
     </Stack.Navigator>
