@@ -18,6 +18,8 @@ function AccountSetting({navigation}) {
 
 
     const [imgUrl, setImgUrl] = useState(false);
+
+
     
     useEffect(() =>{
             (async()=> {
@@ -77,7 +79,6 @@ function AccountSetting({navigation}) {
             console.log("new perm:", permCam);
         })();
     })};
-
 
 
 
@@ -142,16 +143,20 @@ function AccountSetting({navigation}) {
                 </View>
 
             </View>
-                    <Button 
-                    title="Change Password" //change password button
-                    onPress={()=> navigation.navigate(routes.NEW_PASSWORD)} />
+                   
                 <View style ={styles.settingBorder}>
                     
-                
+                 <Button 
+                    title="Change Password" //change password button
+                    onPress={()=> navigation.navigate(routes.NEW_PASSWORD)} />
                 
                 <Button 
                     title = "Change Profile Picture" //change picture button
                     onPress={pickImage}
+                />
+
+                <Button 
+                    title = "Sign Out" //change picture button
                 />
 
 
