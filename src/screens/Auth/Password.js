@@ -2,37 +2,39 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Button, Alert, Keyboard } from 'react-native';
 import color from '../../config/color';
 import routes from '../../config/routes';
+import bcrypt from 'react-native-bcrypt'
 
 
 
-export default function Register({ navigation }) {
-  // State variables to store user input
-  const [email, setEmail] = useState("");
+export default function Password({ navigation, route }) {
+
+  const {id} = route.params
   const [keyboardOn, setKeyboardOn] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
 
   // API endpoint for registration and verification
   const apiEndPoint = 'http://192.168.4.53:3000/api'; // For school
 
   // Function to handle sending a verification email
-  const  sendOTP = async () =>{
+  const  Register = async (hash) =>{
     try{
-      const id = email.toLowerCase()
-      const response = await fetch(`${apiEndPoint}/send-verification-email`,
+      const response = await fetch(`${apiEndPoint}/register`,
     {
       method: 'POST',
       headers:{
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id
+        id, 
+        password: hash
       }),
     })
     const data= await response.json()
     if (response.ok){
-      console.log("This is OTP: ", data.message)
-      console.log("This is Email: ", email)
-      navigation.navigate( routes.OTP, {otp: data.message, id: id})
+        alert(data.message)
+        navigation.navigate(routes.LOGIN)
     }
     else{
       alert(data.message)
@@ -43,14 +45,33 @@ export default function Register({ navigation }) {
     
   };
 
-  const checkCred = () => {
-    if ((email.endsWith("@student.csulb.edu"))){ // (password != "") && (confirmPassword != "") && (password === confirmPassword)
-      sendOTP();
+  const checkPass = () => {
+    if ((password != "") && (confirmPassword != "") && (password === confirmPassword)){ //
+            bcrypt.genSalt(6, (err, salt) => {
+                if (err) {
+                  console.error('Error generating salt:', err);
+                } else {
+                  bcrypt.hash(password, salt, (err, hash) => {
+                    if (err) {
+                        console.error('Error hashing password:', err);
+                    }else{
+                        console.log('Hashed Password:', hash);  
+                        Register(hash)
+                    }
+                  });
+                }
+              });
+              
+            // Register()
+       
+    }
+    else if (password != confirmPassword){
+      alert("The entered Passwords do not match")
     }
     else {
-      alert("Please use CSULB email address")
-    }
+        alert("One or more fields are empty")
   };
+}
 
   return (
     <TouchableOpacity
@@ -63,10 +84,10 @@ export default function Register({ navigation }) {
 
       <View style={styles.prompt}>
         <Text style={styles.pText}>
-          Please enter your CSULB email below:
+          Enter your password and confirm it:
         </Text>
         <Text style={{ fontSize: 10, textAlign: 'center', fontStyle: "italic", fontFamily: "Helvetica" }}>
-          Note: Only CSULB emails can sign up.
+          Note: The password should be composed of minimum 8 Alpha-Numeric.
         </Text>
       </View>
 
@@ -74,17 +95,32 @@ export default function Register({ navigation }) {
         <TextInput
           onFocus={ () => setKeyboardOn(true)}
           style={styles.TextInput}
-          placeholder="Email"
+          placeholder="Password"
           placeholderTextColor={"#000000"}
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(pass) => setPassword(pass)}
           onBlur={() => {
             setKeyboardOn(false);
           }}
         />
+        
+      </View>
+
+      <View style={styles.inputView}>
+      <TextInput
+          onFocus={ () => setKeyboardOn(true)}
+          style={styles.TextInput}
+          placeholder="Confirm Password"
+          placeholderTextColor={"#000000"}
+          onChangeText={(confPass) => setConfirmPassword(confPass)}
+          onBlur={() => {
+            setKeyboardOn(false);
+          }}
+        />
+        
       </View>
       <Button
-        title="CONFIRM"
-        onPress={() => checkCred()} // navigation.navigate 
+        title="REGISTER"
+        onPress={() => checkPass()} // navigation.navigate 
       />
    
     </TouchableOpacity>
@@ -97,14 +133,14 @@ const styles = StyleSheet.create({
     backgroundColor: color.primary,
     alignItems: 'center',
     justifyContent: 'center',
-    rowGap: 30,
+    rowGap: 20,
   },
   containerWithKeyboard:{
-    paddingTop: '20%',
+    paddingTop: '10%',
     flex: 1,
     backgroundColor: color.primary,
     alignItems: 'center',
-    rowGap: 30,
+    rowGap: 20,
     
   },
   inputView: {

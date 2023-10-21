@@ -1,17 +1,20 @@
 import React from "react";
-import { Text, ScrollView, View, StyleSheet, FlatList, TextInput, TouchableOpacity } from "react-native";
+import { Text, SafeAreaView, View, StyleSheet, FlatList, Image,TouchableOpacity } from "react-native";
 import {useState, useEffect} from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
+
 import color from "../../config/color";
-import react from "react";
+import SearchField from "../Components/SearchBar";
+
 
 //Shows the events hosted by a certain club
 function Organization(props) {
-  const [Data, setData] = useState([]);
+const [Data, setData] = useState([]);
+const [clicked, setClicked] = useState(false);
+const [searchPhrase, setSearchPhrase] = useState("");
 
   const getOrgs = async (strInp) => {
     const res = await fetch(
-      `http://192.168.1.183:8000/data/orgs?query=${strInp}`,
+      `http://10.39.49.41:8000/data/getorgs?query=${strInp}`,
       {
         method: "GET",
         headers: {
@@ -21,23 +24,35 @@ function Organization(props) {
     );
     setData(await res.json())
   };
-  useEffect(() => {getOrgs();}, []);
-  const url = "https://www.asicsulb.org/corporate/resources/about-us/press-kit";
+  useEffect(() => {getOrgs(searchPhrase);}, [searchPhrase]);
+  // const url = "https://www.asicsulb.org/corporate/resources/about-us/press-kit";
   return ( 
     <SafeAreaView style ={{backgroundColor: color.primary, flex:1}}>
-      <FlatList
-        data = {Data}
-        renderItem={({ item }) => (
-          <View>
-            <TouchableOpacity style={styles.container} onPress={() => {}}>
-              <Text style={styles.title}>{item.name}</Text>
-              <View style={styles.borderLine} />
-              <Text style={styles.TextInput}>{item.Summary}</Text>
-            </TouchableOpacity>
-          </View>
-        )}  
+
+    <SearchField
+       clicked={clicked}
+       setClicked={setClicked}
+       searchPhrase ={searchPhrase}
+       setSearchPhrase={setSearchPhrase}
       />
-     </SafeAreaView>
+    <FlatList
+      data = {Data}
+      renderItem={({ item }) => (
+        <View>
+          <TouchableOpacity style={styles.container} onPress={() => {}}>
+            <View style ={styles.header}>
+              <Image style={styles.tinyLogo}
+                source={{ uri: item.ProfilePicture}}
+              />
+              <Text style={styles.title}>{item.name}</Text>
+            </View>
+            <View style={styles.borderLine}/>
+            <Text style={styles.TextInput}>{item.Summary}</Text>
+          </TouchableOpacity>
+        </View>
+      )}  
+    />
+    </SafeAreaView>
     //         <SafeAreaView style ={{backgroundColor: color.primary, flex:1}}>
     //             <ScrollView>
     //                 {/* <Text style={{color: color.third}}//placeholder for displaying clubs, backend function
@@ -56,16 +71,13 @@ function Organization(props) {
 
 export default Organization;
 const styles = StyleSheet.create({
-  // container: {
-  //     backgroundColor: '#c97b06',
-  //     padding: 10,
-  //     borderRadius: 10,
-  // },
-  // text:{
-  //     color: '#ffffff',
-  //     fontSize: 16,
-  //     fontWeight: 'bold',
-  // }
+
+  header:{
+      width: "100%",
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignItems: "center"
+  },
   container: {
     backgroundColor: "#c97b06",
     padding: 10,
@@ -74,16 +86,30 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#cccccc",
   },
+  tinyLogo: {
+    width: "15%",
+    height: 50,
+    marginRight: 0,
+    borderRadius: 100,
+    borderWidth: 1,
+    backgroundColor: 'grey',
+
+  },
 
   title: {
-    fontSize: 18,
+    width: "80%",
+    fontSize: 16,
     fontWeight: "bold",
     marginBottom: 10,
+    marginLeft: 10,
+    height: 'auto',
   },
+
   borderLine: {
     borderBottomWidth: 1,
     borderBottomColor: "#cccccc",
     marginBottom: 10,
+    marginTop: 2,
   },
   textInput: {
     fontSize: 16,

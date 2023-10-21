@@ -1375,8 +1375,10 @@
     prompts "^2.4.0"
     semver "^6.3.0"
 
-"@react-native-masked-view/masked-view@0.2.8":
+"@react-native-masked-view/masked-view@^0.2.8":
   version "0.2.8"
+  resolved "https://registry.npmjs.org/@react-native-masked-view/masked-view/-/masked-view-0.2.8.tgz"
+  integrity sha512-+1holBPDF1yi/y0uc1WB6lA5tSNHhM7PpTMapT3ypvSnKQ9+C6sy/zfjxNxRA/llBQ1Ci6f94EaK56UCKs5lTA==
 
 "@react-native/assets@1.0.0":
   version "1.0.0"
@@ -1779,6 +1781,11 @@ base@^0.11.1:
 
 base64-js@^1.1.2, base64-js@^1.2.3, base64-js@^1.3.1, base64-js@^1.5.1:
   version "1.5.1"
+
+bcryptjs@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.npmjs.org/bcryptjs/-/bcryptjs-2.4.3.tgz"
+  integrity sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==
 
 better-opn@~3.0.2:
   version "3.0.2"
@@ -2232,6 +2239,11 @@ crypto-random-string@^1.0.0:
 
 crypto-random-string@^2.0.0:
   version "2.0.0"
+
+crypto@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/crypto/-/crypto-1.0.1.tgz"
+  integrity sha512-VxBKmeNcqQdiUQUW2Tzq0t377b54N2bMtXO/qiLa+6eRRmmC4qT3D4OnTGoT/U6O9aklQ/jTwbOtRMTTY8G0Ig==
 
 dag-map@~1.0.0:
   version "1.0.2"
@@ -2747,9 +2759,6 @@ fs-minipass@^2.0.0:
 
 fs.realpath@^1.0.0:
   version "1.0.0"
-
-fsevents@^2.3.2, fsevents@~2.3.2:
-  version "2.3.3"
 
 function-bind@^1.1.1:
   version "1.1.1"
@@ -4240,6 +4249,11 @@ react-is@^17.0.1:
 react-is@^18.0.0:
   version "18.2.0"
 
+react-native-bcrypt@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.npmjs.org/react-native-bcrypt/-/react-native-bcrypt-2.4.0.tgz"
+  integrity sha512-nC8SR/YCCLIluxd1YEkUX2/xjKELLkO0pgIZc1JGUw9o+wnsfpujm0J8NSPmPEqFUe1n2EkysHnAmuKInDusoQ==
+
 react-native-codegen@^0.71.5:
   version "0.71.5"
   dependencies:
@@ -4358,6 +4372,11 @@ react-native@*, "react-native@>= 0.64.3", react-native@>=0.57, react-native@>=0.
     use-sync-external-store "^1.0.0"
     whatwg-fetch "^3.0.0"
     ws "^6.2.2"
+
+react-navigation@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npmjs.org/react-navigation/-/react-navigation-5.0.0.tgz"
+  integrity sha512-ACTzjc4L1ik7rJ092ZhIELBJ/pnoLgRIqWHSKcYcaBASxyjJCgBEDIV5s585HBj55tw25YwNdlj3+d4B4MYWDg==
 
 react-refresh@^0.4.0:
   version "0.4.3"

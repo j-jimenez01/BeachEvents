@@ -1,15 +1,18 @@
 import { React, useEffect, useState } from "react";
-import { Text, SafeAreaView, ScrollView,FlatList, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, SafeAreaView, ScrollView,FlatList, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import color from "../../config/color";
+import SearchField from "../Components/SearchBar.js";
+
 
 //will display all events
 
 function Events(props) {
   const [Data, setData] = useState([]);
-
-  const getOrgs = async () => {
+  const [clicked, setClicked] = useState(false);
+  const [searchPhrase, setSearchPhrase] = useState("");
+  const getEvents = async (strInp) => {
     const res = await fetch(
-      `http://192.168.1.183:8000/data/searchEvents`,
+      `http://10.39.49.41:8000/data/getevents?query=${strInp}`,
       {
         method: "GET",
         headers: {
@@ -20,16 +23,27 @@ function Events(props) {
     setData(await res.json());
   };
   useEffect(() => {
-    getOrgs();
-  }, []);
+    getEvents(searchPhrase);
+  }, [searchPhrase]);
   return (
     <SafeAreaView style={{ backgroundColor: color.primary, flex: 1 }}>
+      <SearchField
+       clicked={clicked}
+       setClicked={setClicked}
+       searchPhrase ={searchPhrase}
+       setSearchPhrase={setSearchPhrase}
+
+      />
       <FlatList
         data={Data}
         renderItem={({ item }) => (
           <View>
             <TouchableOpacity style={styles.container} onPress={() => {}}>
               <Text style={styles.title}>{item.name}</Text>
+              <Image
+                style={styles.image}
+                source={{ uri: item.imagePath}}
+              />
               <Text style={styles.bold}>Location: <Text>{item.location}</Text></Text>
               <Text style={styles.bold}>Start: <Text>{item.start}</Text></Text> 
               <Text style={styles.bold}>End: <Text>{item.end}</Text></Text>  
@@ -70,16 +84,7 @@ What better way to conclude this semester? See you there and Pura Vida!</Text> *
 export default Events;
 
 const styles = StyleSheet.create({
-  // container: {
-  //     backgroundColor: '#c97b06',
-  //     padding: 10,
-  //     borderRadius: 10,
-  // },
-  // text:{
-  //     color: '#ffffff',
-  //     fontSize: 16,
-  //     fontWeight: 'bold',
-  // }
+
   container: {
     backgroundColor: "#c97b06",
     padding: 10,
@@ -89,6 +94,8 @@ const styles = StyleSheet.create({
     borderColor: "#cccccc",
   },
   title: {
+    marginLeft: 5,
+    marginTop: 5,  
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 10,
@@ -98,6 +105,18 @@ const styles = StyleSheet.create({
     borderBottomColor: "#cccccc",
     marginBottom: 10,
   },
+  image: {
+    width: "100%",
+    height: 200,
+    marginBottom: 10,
+    marginTop: 10,
+    // marginRight: 20,
+    borderRadius: 10,
+    borderWidth: 2,
+    backgroundColor: 'grey',
+
+  },
+
   textInput: {
     fontSize: 16,
     color: "#000000",
