@@ -45,5 +45,5 @@ Contributors:
 - Jose Jimenez (GitHub: j-jimenez01)
 - Ayush Patel
 - Keshav Mehta
-- Dhruv Govasiya
+- Dhruv Gorasiya
 - Josh Hicks
