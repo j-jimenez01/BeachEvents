@@ -15,13 +15,16 @@ function Change() {
                 component={AccountSetting} //Goes to account setting page
                 options={{headerShown:false}}
             />
+            <Stack.Group screenOptions={{presentation:"modal"}} //makes it show as a pop up
+            > 
 
             <Stack.Screen
                 name={routes.NEW_PASSWORD}
                 component={NewPass}// goes to New password page
-                options={{headerShown:true}}
+                options={{headerShown:false}}
                 
             />
+            </Stack.Group>
         </Stack.Navigator>
     );
 }

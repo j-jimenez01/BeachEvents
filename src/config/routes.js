@@ -3,12 +3,11 @@ export default {
     LOGIN: 'Login',
     REGISTER: 'Sign Up',
     FORGOT_PASSWORD: 'Forgot Password',
-    CONFIRM:"Confirmation",
     HOME: 'Home',
     MENU_DRAWER: 'Menu Drawer',
     EVENTS: 'Events',
     ORGANIZATION:"Organization",
-    NEW_PASSWORD:"Change Password",
+    NEW_PASSWORD:"New Password",
     ACCOUNT_SETTINGS: 'Account Settings',
     CHANGE: 'Change',
     LOGIN_NAV:'Login Navigator',
@@ -16,5 +15,9 @@ export default {
     SUBSCRIBE: 'Subscribed To',
     SUBORG: 'Organization Events',
     MAPNAV: 'Map',
+    SUBNAV: 'Sub Navigator',
+    OTP: 'otp',
+    PASSWORD: 'Password',
+  
 
   };

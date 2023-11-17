@@ -5,7 +5,6 @@ import MapView from 'react-native-maps';
 import { Marker, Callout } from 'react-native-maps';
 import routes from '../../config/routes';
 import { MaterialIcons } from "@expo/vector-icons";
-import { Image } from "react-native";
 //location and details of marker
 let locationsOfInterest = [
     {
@@ -142,7 +141,7 @@ function Home({navigation}) {
                         })
                         }
                     >
-                        <Image source={require("../../assests/pin.png")} style={styles.button}  />
+                        <MaterialIcons name="location-city" size={40} color="black"/>
                     </TouchableOpacity>
                     </View>
                 
@@ -159,11 +158,7 @@ const styles = StyleSheet.create({
     map:{ //map conatiner
         width:"100%",
         flex:1,
-    },
-    button:{
-        width: "120%",
-        height:"120%",
-    },
+    }
 })
 
 export default Home;

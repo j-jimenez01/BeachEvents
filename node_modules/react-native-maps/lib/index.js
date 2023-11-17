@@ -75,6 +75,7 @@ var Geojson_1 = require("./Geojson");
 Object.defineProperty(exports, "Geojson", { enumerable: true, get: function () { return __importDefault(Geojson_1).default; } });
 __exportStar(require("./ProviderConstants"), exports);
 __exportStar(require("./MapView.types"), exports);
+__exportStar(require("./MapPolygon.types"), exports);
 __exportStar(require("./sharedTypes"), exports);
 exports.MarkerAnimated = MapMarker_1.default.Animated;
 exports.OverlayAnimated = MapOverlay_1.default.Animated;

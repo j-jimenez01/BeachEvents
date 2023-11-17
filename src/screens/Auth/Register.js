@@ -1,120 +1,210 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TextInput, Button, Alert } from 'react-native';
-import color from '../../config/color';
-import routes from '../../config/routes';
+import React, { useState } from "react";
+import { MaterialIcons } from "@expo/vector-icons";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  Keyboard,
+  StatusBar,
+  SafeAreaView,
+  Button,
+  BackHandler,
+} from "react-native";
+import routes from "../../config/routes";
+import color from "../../config/color";
+import { useNavigation } from "@react-navigation/native";
+
+
+
 
 export default function Register({ navigation }) {
-  // State variables to store user input
-  const [email, setEmail] = useState('');
+  //initialize the variables
+  const [touched, setTouched] = useState(false);
+  const [email, setEmail] = useState("");   
+ 
 
-
-  // API endpoint for registration and verification
-  const apiEndpoint = 'http://0.0.0.0:3000/api'; // For school
-
-  // Function to handle sending a verification email
-  const handleSendVerificationEmail = async () => {
-    try {
-      const response = await fetch(apiEndpoint + '/send-verification-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-        }),
-      });
-
-      if (response.ok) {
-        Alert.alert('Verification Email Sent', 'Please check your email for a verification code.');
-      } else {
-        const errorData = await response.json();
-        Alert.alert('Error', errorData.message);
-      }
-    } catch (error) {
-      console.error('Sending verification email failed:', error);
-      Alert.alert('Error', 'An error occurred while sending the verification email.');
+  const apiEndPoint = 'http://172.20.10.3:3000/api' //school
+  // const apiEndPoint =  'http://192.168.254.11:3000/api' //home
+  const  sendOTP = async () =>{
+    try{
+      const id = email.toLowerCase()
+      console.log(id)
+      const response = await fetch(`${apiEndPoint}/send-verification-email`,
+      
+    {
+      
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id
+      }),
+    })
+    const data= await response.json()
+    if (response.ok){
+      console.log("This is OTP: ", data.message)
+      console.log("This is Email: ", email)
+      navigation.navigate( routes.OTP, {otp: data.message, id: id})
+    }
+    else{
+      alert(data.message)
+    }
+    }catch(err){
+      console.log(err)
+    }
+    
+  } 
+  const checkCred = () => {
+    if ((email.endsWith("@student.csulb.edu"))){ // (password != "") && (confirmPassword != "") && (password === confirmPassword)
+      sendOTP();
+    }
+    else {
+      alert("Please use CSULB email address")
     }
   };
-
-  
-
   return (
+
     <View style={styles.container}>
-      <Image style={styles.logo} source={require("../../assests/Yticon.png")} />
-
-      <View style={styles.prompt}>
-        <Text style={styles.pText}>
-          Please enter your CSULB email below:
-        </Text>
-        <Text style={{ fontSize: 10, textAlign: 'center', fontStyle: "italic", fontFamily: "Helvetica" }}>
-          Note: Only CSULB emails can sign up.
-        </Text>
-      </View>
-
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Email"
-          placeholderTextColor={"#000000"}
-          onChangeText={(email) => setEmail(email)}
-        />
-      </View>
-      <Button
-        title='Confirm'
+      
+      <TouchableOpacity
+        style={{ alignItems: "center", background: "#010101", opacity: 0.5 }}
+      >
+        <MaterialIcons name="drag-handle" size={35} color="white" />
+      </TouchableOpacity>
+      <TouchableOpacity
         onPress={() => {
-          handleSendVerificationEmail();
-          navigation.navigate(routes.CONFIRM,{email});
+          Keyboard.dismiss();
         }}
-      />
+        style={[touched ? styles.cardwithkeyboard : styles.card]}
+        hitSlop={{ top: "100%", left: "100%", right: "100%", bottom: "100%" }}
+        >
+    
+        <Text style={styles.pageName}>Sign up</Text>
+        <Image
+          style={styles.image}
+          source={require("../../assests/icon.png")}
+        />
 
+        <View style={styles.inputView}>
+          <TextInput //input bubble for email
+            onFocus={() => {
+              setTouched(true);
+            }}
+            fontSize = {15}
+            style={styles.TextInput}
+            placeholder="CSULB Email"
+            placeholderTextColor={"#000000"}
+            onChangeText={(e) => setEmail(e)}
+            onBlur={() => {
+              setTouched(false);
+            }}
+          />
+        </View>
+        {/* <View style={styles.inputView}>
+          <TextInput 
+            secureTextEntry={true}
+            onFocus={() => {
+              setTouched(true);
+            }}
+            style={styles.TextInput}
+            placeholder="Password"
+            placeholderTextColor={"#000000"}
+            onChangeText={(pass) => setPassword(pass)}
+            onBlur={() => {
+              setTouched(false);
+            }}
+          />
+        </View>
+        <View style={styles.inputView}>
+          <TextInput 
+            secureTextEntry={true}
+            onFocus={() => {
+              setTouched(true);
+            }}
+            style={styles.TextInput}
+            placeholder="Confirm Password"
+            placeholderTextColor={"#000000"}
+            onChangeText={(confPass) => setConfirmPassword(confPass)}
+            onBlur={() => {
+              setTouched(false);
+            }}
+          />
+        </View> */}
+
+       
+        {/* <Button title="Confirm" onPress={() => navigation.goBack()} /> */}
+        <Button title="OTP PAGE" onPress={() => checkCred()} />
+      </TouchableOpacity>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
+  bar: {
+    backgroundColor: "pink",
+    height: "2%",
+  },
+  card: {
+    flex: 1,
+    backgroundColor: "lightgrey",
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: 50,
+    marginRight: 50,
+    marginTop: "25%",
+    marginBottom: "45%",
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 30,
+  },
+  cardwithkeyboard: {
+    flex: 1,
+    backgroundColor: "lightgrey",
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: 50,
+    marginRight: 50,
+    marginBottom: "85%",
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 30,
+  },
   container: {
     flex: 1,
-    backgroundColor: color.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
-    rowGap: 50,
+    backgroundColor: "#000000", //changing background color
   },
   inputView: {
-    backgroundColor: color.yellow,
-    borderRadius: 30,
-    width: "80%",
-    height: "7%",
+    // backgroundColor: "#c97b06", //bubble design
+    borderRadius: 5,
+    width: "98%",
+    height: "10%",
+    display: "flex",
+    marginBottom: 15,
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "white",
+    justifyContent: "center",
   },
   TextInput: {
-    height: 50,
     flex: 1,
-    padding: 10,
-    fontSize: 15,
-    fontFamily: "Helvetica"
+    backgroundColor: color.third,
+    borderWidth: 1,
+    borderRadius: 30,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingLeft: 5,
+    textAlign: "center",
   },
-  prompt: {
-    height: "20%",
-    width: "80%",
-    backgroundColor: "white",
-    borderColor: color.yellow,
-    borderWidth: 5,
+  pageName: {
+    fontSize: 30,
+    marginBottom: 25,
+  },
+  image: {
+    height: 150,
+    width: 120,
+    marginBottom: "10%",
     borderRadius: 10,
-    alignContent: 'center',
-    justifyContent: 'space-evenly',
-  },
-  pText: {
-    fontSize: 20,
-    textAlign: 'center',
-    fontFamily: "Helvetica"
-  },
-  logo: {
-    height: "25%",
-    width: "38%",
   },
 });
-
-
-

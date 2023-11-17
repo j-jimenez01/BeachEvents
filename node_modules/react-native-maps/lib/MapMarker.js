@@ -47,7 +47,7 @@ class MapMarker extends React.Component {
      * See https://reactnative.dev/docs/new-architecture-library-intro#migrating-off-setnativeprops
      */
     setNativeProps(props) {
-        console.warn('setNativeProps is deprecated and will be removed in next major release');
+        // setNativeProps is deprecated and will be removed in next major release
         // @ts-ignore
         this.marker.current?.setNativeProps(props);
     }

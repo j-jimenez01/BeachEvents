@@ -13,17 +13,11 @@ export default function MenuNav() {
   return (
       
       <Drawer.Navigator initialRouteName="Home" screenOptions={{ //design of the drawer
-        headerTintColor:color.yellow,
-
-        drawerActiveTintColor: color.yellow,
-        drawerInactiveTintColor: color.third,
+        headerTintColor:color.third,
+        drawerActiveTintColor: color.third,
+        drawerInactiveTintColor: "#fff",
         headerStyle:{backgroundColor: color.secondary},
-        drawerStyle: { backgroundColor: color.secondary},
-        drawerType: "slide"
-        }}
-         
-         
-         >
+         drawerStyle: { backgroundColor: color.secondary} }}>
         
 
         <Drawer.Screen name={routes.HOME} component={MapNav} //All the paged in the drawer
