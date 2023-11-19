@@ -13,7 +13,7 @@ function Login(props) {
   const [email, setEmail] =useState(null);
   const [password, setPassword] = useState(null);
 
-  const apiEndPoint = 'http://172.20.10.3:3000/api' //school
+  const apiEndPoint = 'http://0.0.0.0:3000/api' //school
   // const apiEndPoint =  'http://192.168.254.11:3000/api' //home
   const authanticate = async ()=>{
     try{

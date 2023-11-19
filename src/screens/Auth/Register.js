@@ -26,9 +26,11 @@ export default function Register({ navigation }) {
   const [email, setEmail] = useState("");   
  
 
-  const apiEndPoint = 'http://172.20.10.3:3000/api' //school
+  const apiEndPoint = 'http://0.0.0.0:3000/api' //school
   // const apiEndPoint =  'http://192.168.254.11:3000/api' //home
   const  sendOTP = async () =>{
+    const fp = "New"
+    const new_forget = "register"
     try{
       const id = email.toLowerCase()
       console.log(id)
@@ -41,14 +43,16 @@ export default function Register({ navigation }) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id
+        id,
+        fp,
+        new_forget
       }),
     })
     const data= await response.json()
     if (response.ok){
       console.log("This is OTP: ", data.message)
       console.log("This is Email: ", email)
-      navigation.navigate( routes.OTP, {otp: data.message, id: id})
+      navigation.navigate( routes.OTP, {otp: data.message, id: id,fp:fp , new_forget : new_forget})
     }
     else{
       alert(data.message)

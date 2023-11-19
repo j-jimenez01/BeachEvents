@@ -39,22 +39,36 @@ function generateVerificationCode() {
 }
 app.post('/api/send-verification-email', async (req, res) => {
   var { id } = req.body;
+  var { fp } = req.body;
   const verificationCode = generateVerificationCode();
-
   try {
     // Check if a user with the provided email already exists
     console.log("id",id)
+    console.log("fp: ",fp)
     const existingUser = await User.findOne({ "email": id });
     console.log("existing user:", existingUser)
-  
-    if (existingUser.isVerified === true){
+    
+    if (existingUser != null && fp == "New") {
+      return res.status(400).json({ message: `${id} already registered.`});
+    }
+    else if(existingUser == null){
+      console.log("this is the new user")
       await transporter.sendMail({
         from: 'beachevents01@gmail.com',
         to: id,
         subject: 'Email Verification',
         text: `Your verification code is: ${verificationCode}`,
       });
-  
+      res.status(200).json({ message:  verificationCode});
+      return null;
+    }
+    else if (existingUser.isVerified === true){
+      await transporter.sendMail({
+        from: 'beachevents01@gmail.com',
+        to: id,
+        subject: 'Email Verification',
+        text: `Your verification code is: ${verificationCode}`,
+      });
       res.status(200).json({ message:  verificationCode});
       return null;
     }
@@ -75,6 +89,9 @@ app.post('/api/send-verification-email', async (req, res) => {
     console.error('Sending verification email failed:', error);
     res.status(500).json({ message: 'Sending verification email failed.' });
   }
+
+res.status(200).json({ message:  verificationCode});
+
 });
 
 app.post('/api/changePassword', async (req, res) => {
@@ -129,7 +146,7 @@ app.post('/api/register', async (req, res) => {
 
 // New API endpoint for user authentication
 app.post('/api/authenticate', async (req, res) => {
-  const { id, pass } = req.body;SD
+  const { id, pass } = req.body;
   try {
     const user = await db.collection('users').findOne({ 'email': id });
     if (!user.email){
@@ -169,6 +186,6 @@ app.post('/api/authenticate', async (req, res) => {
 // FOR SCHOOL
 
 
-app.listen(port, '172.20.10.3', () => {
-  console.log(`Server is running on http://172.20.10.3:${port}`);
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server is running on http://0.0.0.0:${port}`);
 });

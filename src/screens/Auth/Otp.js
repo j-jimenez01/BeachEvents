@@ -21,7 +21,7 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import parseErrorStack from "react-native/Libraries/Core/Devtools/parseErrorStack";
 
 const Otp = ({navigation, route}) => {
-  const {otp,redirect,id} = route.params
+  const {otp,redirect,id,fp,new_forget} = route.params
   const [touched, setTouched] = useState(false)
   const [otpCode, setOtpCode] = useState('')
   const [isPinReady, setIsPinReady] = useState(false)
@@ -33,7 +33,7 @@ const Otp = ({navigation, route}) => {
   useEffect(()=> {
     setIsPinReady(otpCode.length === maxCodeLength)
     if(otpCode == otp){
-      navigation.navigate(routes.PASSWORD, {id: id})
+      navigation.navigate(routes.PASSWORD, {id: id, fp:fp,new_forget:new_forget})
     }
     return () =>{  
       setIsPinReady(false)

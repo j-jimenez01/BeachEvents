@@ -10,12 +10,13 @@ function Forgot({ navigation }) {
   const [again, setAgain] = useState("");
   const [email, setEmail] = useState("");
   
-  const apiEndPoint =  'http://172.20.10.3:3000/api'
+  const apiEndPoint =  'http://0.0.0.0:3000/api'
   const  sendOTP = async () =>{
     console.log("hello")
     try{
       const id = email.toLowerCase()
       const fp = "change"
+      const new_forget = "changePassword"
       const response = await fetch(`${apiEndPoint}/send-verification-email`,
     {
       method: 'POST',
@@ -31,7 +32,7 @@ function Forgot({ navigation }) {
       const data= await response.json()
       console.log(id)
       // console.log(data.message)
-      navigation.navigate( routes.OTP, {otp: data.message, redirect : routes.PASSWORD,id: id.toLowerCase()})
+      navigation.navigate( routes.OTP, {otp: data.message, redirect : routes.PASSWORD,id: id.toLowerCase(),fp: fp,new_forget:new_forget})
     }
     }catch(err){
       console.log("abe")

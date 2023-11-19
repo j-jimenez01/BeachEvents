@@ -19,17 +19,19 @@ import { useNavigation } from "@react-navigation/native";
 
 
 export default function Register({ navigation, route }) {
-  const {id} = route.params
+  const {id,fp,new_forget} = route.params
   const [touched, setTouched] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   // const apiEndPoint = 'http://172.16.227.198:3000/api' //school
   // const apiEndPoint =  'http://192.168.254.21:3000/api'//home
-  const apiEndPoint =  'http://172.20.10.3:3000/api'
+  const apiEndPoint =  'http://0.0.0.0:3000/api'
   const  Register = async () =>{
     try{
-      const response = await fetch(`${apiEndPoint}/changePassword`,
+      console.log(new_forget)
+      console.log(`${apiEndPoint}/${new_forget}`)
+      const response = await fetch(`${apiEndPoint}/${new_forget}`,
     {
       
       method: 'POST',
@@ -85,7 +87,7 @@ export default function Register({ navigation, route }) {
         style={[touched ? styles.cardwithkeyboard : styles.card]}
         hitSlop={{ top: "100%", left: "100%", right: "100%", bottom: "100%" }}
         >
-        <Text style={styles.pageName}>Reset password</Text>
+        <Text style={styles.pageName}> {fp} Password</Text>
         <Image
           style={styles.image}
           source={require("../../assests/icon.png")}
