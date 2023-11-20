@@ -15,7 +15,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ALLOWED_HOSTS = ['192.168.254.11', '10.39.107.72', '10.39.49.41', '192.168.12.237', '127.0.0.1', 'localhost', '192.168.254.11', '10.39.66.68']
+ALLOWED_HOSTS = ['192.168.254.11', '10.39.107.72', '10.39.49.41', '192.168.12.237', '127.0.0.1', 'localhost', '192.168.254.11', '10.39.66.68','0.0.0.0']
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -73,7 +73,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:19006",
-    "http://192.168.254.11:19006",
+    # "http://0.0.0.0:19006",
 ]
 # CORS_ORIGIN_ALLOW_ALL = True
 
