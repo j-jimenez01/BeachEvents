@@ -3,7 +3,7 @@ export default {
     LOGIN: 'Login',
     REGISTER: 'Sign Up',
     FORGOT_PASSWORD: 'Forgot Password',
-    CONFIRM:"Confirmation",
+    OTP:"Otp varification",
     HOME: 'Home',
     MENU_DRAWER: 'Menu Drawer',
     EVENTS: 'Events',
@@ -16,5 +16,6 @@ export default {
     SUBSCRIBE: 'Subscribed To',
     SUBORG: 'Organization Events',
     MAPNAV: 'Map',
+    PASSWORD: 'Password Screen'
 
   };
