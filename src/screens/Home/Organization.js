@@ -14,7 +14,7 @@ const [searchPhrase, setSearchPhrase] = useState("");
 
   const getOrgs = async (strInp) => {
     const res = await fetch(
-      `http://10.39.49.41:8000/data/getorgs?query=${strInp}`,
+      `http://0.0.0.0:8000/data/getorgs?query=${strInp}`,
       {
         method: "GET",
         headers: {

@@ -12,7 +12,7 @@ function Events(props) {
   const [searchPhrase, setSearchPhrase] = useState("");
   const getEvents = async (strInp) => {
     const res = await fetch(
-      `http://10.39.49.41:8000/data/getevents?query=${strInp}`,
+      `http://0.0.0.0:8000/data/getevents?query=${strInp}`,
       {
         method: "GET",
         headers: {

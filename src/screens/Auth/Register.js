@@ -12,46 +12,84 @@ export default function Register({ navigation }) {
 
 
   // API endpoint for registration and verification
-  const apiEndPoint = 'http://192.168.4.53:3000/api'; // For school
+  const apiEndPoint = 'http://0.0.0.0:3000/api'; // For school
 
-  // Function to handle sending a verification email
-  const  sendOTP = async () =>{
-    try{
-      const id = email.toLowerCase()
-      const response = await fetch(`${apiEndPoint}/send-verification-email`,
-    {
+  // // Function to handle sending a verification email
+  // const  sendOTP = async () =>{
+  //   try{
+  //     const id = email.toLowerCase()
+  //     const response = await fetch(`${apiEndPoint}/send-verification-email`,
+  //   {
+  //     method: 'POST',
+  //     headers:{
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       id
+  //     }),
+  //   })
+  //   const data= await response.json()
+  //   if (response.ok){
+  //     console.log("This is OTP: ", data.message)
+  //     console.log("This is Email: ", email)
+  //     navigation.navigate( routes.OTP, {otp: data.message, id: id})
+  //   }
+  //   else{
+  //     alert(data.message)
+  //   }
+  //   }catch(err){
+  //     console.log(err)
+  //   }
+    
+  // };
+
+  // const checkCred = () => {
+  //   if ((email.endsWith("@student.csulb.edu"))){ 
+  //     sendOTP();
+  //   }
+  //   else {
+  //     alert("Please use CSULB email address")
+  //   }
+  // };
+// Function to handle sending a verification email
+const sendOTP = async () => {
+  try {
+    const id = email.toLowerCase();
+    const response = await fetch(`${apiEndPoint}/send-verification-email`, {
       method: 'POST',
-      headers:{
+      headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id
+        id,
       }),
-    })
-    const data= await response.json()
-    if (response.ok){
-      console.log("This is OTP: ", data.message)
-      console.log("This is Email: ", email)
-      navigation.navigate( routes.OTP, {otp: data.message, id: id})
-    }
-    else{
-      alert(data.message)
-    }
-    }catch(err){
-      console.log(err)
-    }
-    
-  };
+    });
 
-  const checkCred = () => {
-    if ((email.endsWith("@student.csulb.edu"))){ // (password != "") && (confirmPassword != "") && (password === confirmPassword)
-      sendOTP();
+    if (response.ok) {
+      const data = await response.json();
+      console.log("This is OTP: ", data.message);
+      console.log("This is Email: ", email);
+      navigation.navigate(routes.OTP, { otp: data.message, id: id });
+    } else {
+      const errorData = await response.json();
+      console.error('Error sending verification email:', errorData.message);
+      alert('Error sending verification email. Please try again.');
     }
-    else {
-      alert("Please use CSULB email address")
-    }
-  };
+  } catch (err) {
+    console.error('Fetch error:', err);
+    alert('Error sending verification email. Please check your network connection.');
+  }
+};
 
+const checkCred = () => {
+  if (email.endsWith("@student.csulb.edu")) {
+    sendOTP();
+  } else {
+    alert("Please use CSULB email address");
+  }
+};
+
+  
   return (
     <TouchableOpacity
       onPress={() => {
