@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import routes from '../config/routes';
-import { Register, Confirm, Forgot,Otp,Password } from '../screens';
+import { Confirm, Forgot,Otp,Password } from '../screens';
 
 
 const Stack = createStackNavigator();
@@ -15,12 +15,13 @@ export default function ForgotNav() {
       <Stack.Group >
       <Stack.Screen name={routes.FORGOT_PASSWORD} component={Forgot} options={{headerShown:false}} //login page
       />
+
       <Stack.Screen options={{headerShown:false}} name={routes.OTP} component={Otp} //forgot page 
       />
       <Stack.Screen options={{headerShown:false}} name={routes.PASSWORD} component={Password} //forgot page 
       />
-      <Stack.Screen options={{headerShown:false}} name={routes.CONFIRM} component={Confirm} //forgot page 
-      />
+      {/* <Stack.Screen options={{headerShown:false}} name={routes.CONFIRM} component={Confirm} //forgot page 
+      /> */}
       </Stack.Group>
 
 
@@ -28,3 +29,6 @@ export default function ForgotNav() {
     
   );
 }
+
+
+

@@ -21,7 +21,7 @@ export default function LogNav() {
       <Stack.Group screenOptions={{presentation:"modal"}} //pop up
       >
 
-      <Stack.Screen name={routes.FORGOT_PASSWORD} component={Forgot} //forgot page
+      <Stack.Screen name={routes.FORGOT_PASSWORD} component={ForgotNav} //forgot page
        />
      
       <Stack.Screen name={routes.REGISTER} component={RegNav} //Register page

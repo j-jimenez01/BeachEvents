@@ -1,18 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
-import {
-  View,
-  Keyboard,
-  Text,
-  SafeAreaView,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Pressable,
-  Image,
-  Button,
-
-
+import {View,Keyboard,Text,SafeAreaView,StyleSheet,TextInput,TouchableOpacity,Pressable,Image,Button,
 } from "react-native";
 import routes from "../../config/routes";
 import { useNavigation } from "@react-navigation/native"
