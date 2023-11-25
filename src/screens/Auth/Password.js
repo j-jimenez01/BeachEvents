@@ -8,19 +8,19 @@ import bcrypt from 'react-native-bcrypt'
 
 export default function Password({ navigation, route }) {
 
-  const {id} = route.params
+  const {id,fp,new_forget} = route.params //fp,newfor
   const [keyboardOn, setKeyboardOn] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-
   // API endpoint for registration and verification
   const apiEndPoint = 'http://0.0.0.0:3000/api'; // For school
 
   // Function to handle sending a verification email
   const  Register = async (hash) =>{
     try{
-      const response = await fetch(`${apiEndPoint}/register`,
+      console.log(new_forget)
+      console.log(`${apiEndPoint}/${new_forget}`)
+      const response = await fetch(`${apiEndPoint}/${new_forget}`,
     {
       method: 'POST',
       headers:{
@@ -44,6 +44,7 @@ export default function Password({ navigation, route }) {
     }
     
   };
+
 
   const checkPass = () => {
     if ((password != "") && (confirmPassword != "") && (password === confirmPassword)){ //
@@ -181,6 +182,21 @@ const styles = StyleSheet.create({
     width: "38%",
   },
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -224,12 +224,8 @@ export default function Forgot({ navigation }) {
         }),
       });
 
-      console.log("INHERE1");
-
       if (response.ok) {
-        console.log("INHERE2");
         const data = await response.json();
-        // navigation.navigate(routes.OTP, {otp: data.message, id: id });
         navigation.navigate(routes.OTP, { otp: data.message, redirect: routes.PASSWORD, id: id.toLowerCase(), fp: fp, new_forget: new_forget });
       }
     } catch (err) {

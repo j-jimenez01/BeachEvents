@@ -57,6 +57,7 @@ function Login(props) {
       } else if (result) {
         navigation.navigate(routes.MENU_NAVIGATOR);
       } else {
+        console.log("Your password: ",password)
         Alert.alert('Password is incorrect');
       }
     });
