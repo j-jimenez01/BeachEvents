@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, Image, TextInput, TouchableOpacity,Alert } from 'react-native';
 import { StyleSheet } from 'react-native';
 import color from '../../config/color';
 import routes from '../../config/routes';
@@ -36,6 +36,14 @@ export default function Forgot({ navigation }) {
     }
   };
 
+  const checkCred = () => {
+    if (email.endsWith("@student.csulb.edu")) {
+      sendOTP();
+    } else {
+      alert("Please use CSULB email address");
+    }
+  };
+
   return (
     <View style={styles.container}>
       {/* inserting the logo */}
@@ -58,7 +66,7 @@ export default function Forgot({ navigation }) {
           />
         </View>
 
-        <TouchableOpacity onPress={() => sendOTP()} style={styles.loginbtn}>
+        <TouchableOpacity onPress={() => checkCred()} style={styles.loginbtn}>
           <Text style={styles.loginText}>Confirm </Text>
         </TouchableOpacity>
       </View>
