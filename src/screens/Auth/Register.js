@@ -92,6 +92,8 @@ const checkCred = () => {
         title="CONFIRM"
         onPress={() => checkCred()} // navigation.navigate 
       />
+      
+        
    
     </TouchableOpacity>
   );

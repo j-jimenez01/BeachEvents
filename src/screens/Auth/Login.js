@@ -111,6 +111,7 @@ function Login(props) {
           
           {/* <Button color={"black"}  title='Go To Home Page' onPress={() => navigation.navigate(routes.MENU_NAVIGATOR)}/>  */}
           {/**navigation.navigate(routes.MENU_NAVIGATOR) */}
+
           <TouchableOpacity  onPress={() => authanticate()}> 
         <Text>Login</Text>
       </TouchableOpacity>
