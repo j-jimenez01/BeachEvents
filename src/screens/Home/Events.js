@@ -1,7 +1,9 @@
 import { React, useEffect, useState } from "react";
-import { Text, SafeAreaView, ScrollView,FlatList, View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Text, SafeAreaView,FlatList, View, StyleSheet, Image, TouchableOpacity, Button, EventSubscriptionVendor } from "react-native";
+import { Overlay } from "@rneui/themed";
 import color from "../../config/color";
 import SearchField from "../Components/SearchBar.js";
+import SubOverlay from "../Components/SubOverlay.js";
 
 
 //will display all events
@@ -10,9 +12,13 @@ function Events(props) {
   const [Data, setData] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [searchPhrase, setSearchPhrase] = useState("");
+  const [visible, setVisible] = useState(false);
+  const [event, setEvent] = useState("");
+  const [Id, setId] = useState();
+  
   const getEvents = async (strInp) => {
     const res = await fetch(
-      `http://10.39.49.41:8000/data/getevents?query=${strInp}`,
+      `http://192.168.4.53:8000/data/getevents?query=${strInp}`,
       {
         method: "GET",
         headers: {
@@ -35,10 +41,18 @@ function Events(props) {
 
       />
       <FlatList
+      
         data={Data}
         renderItem={({ item }) => (
           <View>
-            <TouchableOpacity style={styles.container} onPress={() => {}}>
+            <SubOverlay
+              setVisible={setVisible}
+              visible={visible}
+              eventName={event}
+              eventId = {Id}
+            />
+            
+            <TouchableOpacity style={styles.container} onPress={() => {setEvent(item.name), setId(item.Id), setVisible(true)}}>
               <Text style={styles.title}>{item.name}</Text>
               <Image
                 style={styles.image}
@@ -52,7 +66,9 @@ function Events(props) {
             </TouchableOpacity>
           </View>
         )}
+        keyExtractor={item => item.id}
       />
+      
 
       {/* <ScrollView>//makes it scrollable */}
 
@@ -70,9 +86,9 @@ function Events(props) {
                 <Text style={styles.bold}>Time:</Text> 5 to 7 p.m.
                 </Text> */}
       {/* <Text style={styles.textInput} multiline = {true}><Text style={styles.bold}>Description:</Text>{'\n'}Join us May 2 from 5 to 7 p.m. for the Owen’s Condition for Tuition Celebration event at the Student Recreation & Wellness Center (SRWC)! Whether you earned one point, or finished all 50 points, we are inviting you to all the fun things to celebrate your commitment to wellness. Free giveaways, food and fun await!{'\n'}
-Come by for free food, ice cream, shakes and more snacks to feed your appetite. There will be music, activities and inflatables for your entertainment. We will also have a balloon artist, henna and airbrush tattoos, caricature drawings and a photo booth to keep the fun going.{'\n'}
-Prizes ranging from a Bluetooth speaker to beach cruiser bike will be awarded. The pinnacle of this event is an opportunity drawing for a semester of paid tuition for those that have completed the program with all 50 points.
-What better way to conclude this semester? See you there and Pura Vida!</Text> */}
+        Come by for free food, ice cream, shakes and more snacks to feed your appetite. There will be music, activities and inflatables for your entertainment. We will also have a balloon artist, henna and airbrush tattoos, caricature drawings and a photo booth to keep the fun going.{'\n'}
+        Prizes ranging from a Bluetooth speaker to beach cruiser bike will be awarded. The pinnacle of this event is an opportunity drawing for a semester of paid tuition for those that have completed the program with all 50 points.
+        What better way to conclude this semester? See you there and Pura Vida!</Text> */}
 
       {/* </View> */}
 
@@ -97,6 +113,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginTop: 5,  
     fontSize: 18,
+    color: "White",
     fontWeight: "bold",
     marginBottom: 10,
   },
@@ -115,6 +132,14 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     backgroundColor: 'grey',
 
+  },
+  subView:{
+    height: 310, 
+    width: 500,
+    zIndex: 1,
+    backgroundColor: "cyan",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   textInput: {

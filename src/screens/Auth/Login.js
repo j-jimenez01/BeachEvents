@@ -108,11 +108,11 @@ function Login(props) {
         <View style={styles.login}// Login button, will redirect to the home page when clicked
         >
           
-          {/* <Button color={"black"}  title='Login' onPress={() => navigation.navigate(routes.MENU_NAVIGATOR)}/>  */}
-          {/**navigation.navigate(routes.MENU_NAVIGATOR) */}
-          <TouchableOpacity  onPress={() => authanticate()}> 
+          <Button color={"black"}  title='Login' onPress={() =>  navigation.navigate(routes.MENU_NAVIGATOR) }/>  
+          {/**authanticate() */}
+          {/* <TouchableOpacity  onPress={() => authanticate()}> 
         <Text>Login</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
           {/* </Button> */}
         </View>

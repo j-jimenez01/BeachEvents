@@ -9,6 +9,11 @@ export {default as Organization} from '../screens/Home/Organization';
 export {default as Subscribe} from '../screens/Home/Subscribe';
 export {default as SubOrg} from '../screens/Home/SubOrg';
 
+//Components
+export {default as SubOverlay} from '../screens/Components/SubOverlay'
+export {default as SearchField}  from '../screens/Components/SearchBar'
+
+
 // Auth Screens
 export {default as Login} from '../screens/Auth/Login';
 export {default as Register} from '../screens/Auth/Register';
