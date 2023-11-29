@@ -10,7 +10,7 @@ export {default as Subscribe} from '../screens/Home/Subscribe';
 export {default as SubOrg} from '../screens/Home/SubOrg';
 
 //Components
-export {default as SubOverlay} from '../screens/Components/SubOverlay'
+export {default as PinOverlay} from './Components/PinOverlay'
 export {default as SearchField}  from '../screens/Components/SearchBar'
 
 

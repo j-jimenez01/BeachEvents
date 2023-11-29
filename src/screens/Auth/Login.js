@@ -15,7 +15,7 @@ function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   // API endpoint for authenticate
-  const apiEndpoint = 'http://192.168.4.53:3000/api';
+  const apiEndpoint = 'http://0.0.0.0:3000/api';
 
   const authanticate = async () => {
     if(password != '' && email != ''){
