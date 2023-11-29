@@ -14,45 +14,10 @@ export default function Register({ navigation }) {
   // API endpoint for registration and verification
   const apiEndPoint = 'http://0.0.0.0:3000/api'; // For school
 
-  // // Function to handle sending a verification email
-  // const  sendOTP = async () =>{
-  //   try{
-  //     const id = email.toLowerCase()
-  //     const response = await fetch(`${apiEndPoint}/send-verification-email`,
-  //   {
-  //     method: 'POST',
-  //     headers:{
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       id
-  //     }),
-  //   })
-  //   const data= await response.json()
-  //   if (response.ok){
-  //     console.log("This is OTP: ", data.message)
-  //     console.log("This is Email: ", email)
-  //     navigation.navigate( routes.OTP, {otp: data.message, id: id})
-  //   }
-  //   else{
-  //     alert(data.message)
-  //   }
-  //   }catch(err){
-  //     console.log(err)
-  //   }
-    
-  // };
-
-  // const checkCred = () => {
-  //   if ((email.endsWith("@student.csulb.edu"))){ 
-  //     sendOTP();
-  //   }
-  //   else {
-  //     alert("Please use CSULB email address")
-  //   }
-  // };
 // Function to handle sending a verification email
 const sendOTP = async () => {
+  const fp = "New"
+  const new_forget = "register"
   try {
     const id = email.toLowerCase();
     const response = await fetch(`${apiEndPoint}/send-verification-email`, {
@@ -62,6 +27,8 @@ const sendOTP = async () => {
       },
       body: JSON.stringify({
         id,
+        fp,
+        new_forget
       }),
     });
 
@@ -69,7 +36,8 @@ const sendOTP = async () => {
       const data = await response.json();
       console.log("This is OTP: ", data.message);
       console.log("This is Email: ", email);
-      navigation.navigate(routes.OTP, { otp: data.message, id: id });
+      // navigation.navigate(routes.OTP, { otp: data.message, id: id });
+      navigation.navigate( routes.OTP, {otp: data.message, id: id,fp:fp , new_forget : new_forget})
     } else {
       const errorData = await response.json();
       console.error('Error sending verification email:', errorData.message);
@@ -124,6 +92,8 @@ const checkCred = () => {
         title="CONFIRM"
         onPress={() => checkCred()} // navigation.navigate 
       />
+      
+        
    
     </TouchableOpacity>
   );
