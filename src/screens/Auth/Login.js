@@ -1,56 +1,82 @@
-
 import {React, useState} from 'react';
-import { SafeAreaView,View, Text, StyleSheet,Button,Image } from 'react-native';
+import { SafeAreaView,View, Text, StyleSheet,Button,Image,Alert, Keyboard } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { TouchableOpacity } from 'react-native';
 import color from '../../config/color';
 import routes from '../../config/routes';
+import bcrypt from 'react-native-bcrypt'
+import { hash } from 'bcryptjs';
 //Login page where you will enter email and password or be able to sign up or make a new password
 
 function Login(props) {
   {/*initializes the keywords that will be used to store info*/}
-  const {navigation} = props;
-  const [email, setEmail] =useState(null);
-  const [password, setPassword] = useState(null);
+  const { navigation } = props;
+  const [keyboardOn, setKeyboardOn] = useState(false)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  // API endpoint for authenticate
+  const apiEndpoint = 'http://0.0.0.0:3000/api';
 
-  const apiEndPoint = 'http://0.0.0.0:3000/api' //school
-  // const apiEndPoint =  'http://192.168.254.11:3000/api' //home
-  const authanticate = async ()=>{
-    try{
-      const id = email.toLowerCase()
-      const response = await fetch(`${apiEndPoint}/authenticate`, 
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        }, 
-        body: JSON.stringify({
-          id: id,
-          pass: password
-        })
-      });
-      const data = await response.json()
-      if (response.ok){
-        navigation.navigate(routes.MENU_NAVIGATOR)
+  const authanticate = async () => {
+    if(password != '' && email != ''){
+      try {
+        const id = email.toLowerCase()
+        // send post request to authenticate the user
+        const response = await fetch(apiEndpoint+'/authenticate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: id,
+          }),
+        });
+  
+        if (response.ok) {
+          const data = await response.json();
+          checkPass(data.pass)
+        } else {
+          const errorData = await response.json();
+          Alert.alert('Login Failed',"Invalid Email or Password.");
+          console.error('Authentication failed:', errorData.message);
+        }
+      } catch (error) {
+        console.error('Authentication failed:', error);
       }
-      else{
-        alert('Message: blah', data.message)
-      }
+    }else{
+      Alert.alert("Please fill all fields");
+    }
+    
+  };
 
-    }
-    catch(e){
-      console.log('error', e);
-    }
+
+  const checkPass = (hashPass) =>{
+    bcrypt.compare(password, hashPass, (err, result) => {
+      if (err) {
+        console.error('Error comparing passwords:', err);
+      } else if (result) {
+        navigation.navigate(routes.MENU_NAVIGATOR);
+      } else {
+        console.log("Your password: ",password)
+        Alert.alert('Password is incorrect');
+      }
+    });
   }
 
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Image resizeMethod = "contain" style={styles.logo}
-        source={ require("../../assests/icon.png")}  //our logo
-      />
+    
+    <TouchableOpacity onPress={()=>Keyboard.dismiss()} style={keyboardOn?styles.containerWithKeyboard: styles.container}>
+  
+      {keyboardOn?null:<Image style={styles.logo}
+        source={ require("../../assests/Yticon.png")} //our logo
+      />}
       <View style={styles.input}>
         <View style={styles.bubble}>
         <TextInput
+          onFocus={()=> setKeyboardOn(true)}
+          onBlur={()=> setKeyboardOn(false)}
+          style={styles.TextInput}
           placeholder='Email' //bubble to enter email
           placeholderTextColor={color.primary}
           onChangeText={ (email) => setEmail(email)}//stores the users input to email
@@ -59,57 +85,85 @@ function Login(props) {
         </View>
         <View style={styles.bubble} >
         <TextInput
-          secureTextEntry={true}
+          onFocus={()=> {setKeyboardOn(true); }}
+          onBlur={()=> setKeyboardOn(false)}
+          style={styles.TextInput}
           placeholder='Password' //bubble for password
           placeholderTextColor={color.primary}
           onChangeText={(password) => setPassword(password)} //stores user's input to password
+          secureTextEntry={true} // Mask the password input
         />
-
         </View>
         <View resizeMethod="contain" style ={styles.extra}>
           <Button
             title='Sign Up' //Button to sign up, will redirect to sign up page when clicked on
-            onPress={()=> navigation.navigate(routes.REGISTER)} />
-          
+            onPress={()=> navigation.navigate(routes.REGISTER)} 
+          />
           <Button
             title='Forgot Password' //Button if you forgot your password, will redirect to Forgot page when clicked on
-            onPress={()=> navigation.navigate(routes.FORGOT_PASSWORD)} />
-          
+            onPress={()=> navigation.navigate(routes.FORGOT_PASSWORD)} 
+          />
         </View>
       </View>
 
-        <TouchableOpacity style={styles.login} onPress={() => authanticate() }   // navigation.navigate(routes.MENU_NAVIGATOR) authanticate()
+        <View style={styles.login}// Login button, will redirect to the home page when clicked
         >
-          <Text style={{fontSize: 16}}>Login 
+          
+          {/* <Button color={"black"}  title='Go To Home Page' onPress={() => navigation.navigate(routes.MENU_NAVIGATOR)}/>  */}
+          {/**navigation.navigate(routes.MENU_NAVIGATOR) */}
 
-          </Text>
-        </TouchableOpacity>
-    </SafeAreaView>
+          <TouchableOpacity  onPress={() => authanticate()}> 
+        <Text>Login</Text>
+      </TouchableOpacity>
+
+          {/* </Button> */}
+        </View>
+   
+    </TouchableOpacity>
+
   );
 }
 
 const styles = StyleSheet.create({
   container :{ //background
     flex:1,
-    backgroundColor: color.primary,
+    backgroundColor: "#171717",
     alignItems:"center",
-    justifyContent:"space-evenly",
+    justifyContent:"center",
+    rowGap: 30,
+
+  },
+  containerWithKeyboard :{ //background
+    paddingTop: "35%",
+    flex:1,
+    backgroundColor: "#171717",
+    alignItems:"center",
+    rowGap: 30,
 
   },
   logo:{ //logo dimensions
-    height: "20%",
-    width:"30%",
-    borderRadius: 10,
+    height: "25%",
+    width:"40%",
+
+  },
+  TextInput: {
+    height: 50,
+    width: "80%",
+    textAlign: 'center',
+    flex: 1,
+    padding: 10,
+    fontSize: 15,
+    fontFamily: "Helvetica"
   },
   input:{  //border for input bubbles
-    width:"90%",
-    height:"40%",
+    width:"80%",
+    height:280,
     backgroundColor: "lightgrey",
-    padding: 10,
+    borderWidth:2,
+    borderColor: "#FDB813",
     alignItems:"center",
     borderRadius:25,
     justifyContent:"space-evenly",
-
   },
   extra:{ // border for sign up and forgot paswword
     width:"80%",
@@ -119,22 +173,29 @@ const styles = StyleSheet.create({
     flexDirection:"row"
   },
   bubble:{ // user input bubble
-    width:"100%",
+    width:"99%",
     height:"20%",
-    borderWidth: 1,
-    backgroundColor: color.third,
+    backgroundColor: "#FFAD01",
     borderRadius:25,
-    alignItems:"center",
-    justifyContent:"center"
-  },
-  login:{ // login button
-    width:"100%",
-    height:"8%",
-    borderRadius:25,
-    backgroundColor: color.third,
+    borderWidth:1,
+    borderColor: color.primary,
     alignItems:"center",
     justifyContent:"center",
-  }
+    
+  },
+
+  login:{ // login button
+    width:"30%",
+    height:"6%",
+    borderRadius:25,
+    backgroundColor: "#FFAD01",
+    alignItems:"center",
+    justifyContent:"center",
+  },
+  Logtext:{
+    fontSize: 15,
+    color:"black"
+  },
 })
 
 export default Login;

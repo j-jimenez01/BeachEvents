@@ -21,6 +21,7 @@ function Events(props) {
       }
     );
     setData(await res.json());
+    const v = [... Data]
   };
   useEffect(() => {
     getEvents(searchPhrase);

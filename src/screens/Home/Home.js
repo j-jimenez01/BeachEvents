@@ -5,32 +5,54 @@ import MapView from 'react-native-maps';
 import { Marker, Callout } from 'react-native-maps';
 import routes from '../../config/routes';
 import { MaterialIcons } from "@expo/vector-icons";
+import { Image } from "react-native";
 //location and details of marker
 let locationsOfInterest = [
     {
-        title: "LA1",
-        description: "Liberal Arts 1",
+        title: "SHS",
+        description: "Student Health Services",
         location:{
-        latitude: 33.77765192172539,
+        latitude: 33.78229033858013,
+        longitude: -118.11792922513402
+        },
+    },
+    // 34.52785897561143, -118.16162685934198
+    // 33.781260370009484, -118.1137525461882
+    {
+        title: "USU",
+        description: "University Student Union",
+        location:{
+        latitude: 33.781260370009484,
         latitudeDelta: 0.0015601735620123236,
-        longitude: -118.11473586308168,
+        longitude: -118.1137525461882,
         longitudeDelta: 0.0013303535742750228
         },
-
-    
     },
-
     {
-        description: "Liberal Arts 2",
-        title: "LA2",
+        title: "PH1",
+        description: "Peterson Hall 1",
         location:{
-        latitude: 33.77795965765024,
+        latitude: 33.778740890978085, 
+        longitude: -118.11209781037276,
+        },
+    },
+    {
+        title: "SRWC",
+        description: "Student Recreation and Wellness Center",
+        location:{
+        latitude: 33.785284553612705, 
+        longitude: -118.10917416804547,
+        },
+    },
+    {
+        description: "Speaker's Platform",
+        title: "Speaker's Platform",
+        location:{
+        latitude: 33.78017591301152, 
         latitudeDelta: 0.00135923712341679,
-        longitude: -118.11457938594178,
+        longitude: -118.11464369386114,
         longitudeDelta: 0.0011590200639375325
         },
-
-    
     },
 
     {
@@ -42,12 +64,8 @@ let locationsOfInterest = [
         longitude: -118.1144875976943,
         longitudeDelta: 0.0011590200639375325
         },
-
-    
     },
-
-   
-
+    
     {
         description: "Liberal Arts 4",
         title: "LA4",
@@ -57,18 +75,6 @@ let locationsOfInterest = [
         longitude: -118.11438072973003,
         longitudeDelta: 0.0011590200639517434
         },
-
-    
-    },
-    {
-        description: "Liberal Arts 5",
-        title: "LA5",
-        location:{
-        latitude: 33.77894542410917,
-        latitudeDelta: 0.0014901037364225544,
-        longitude: -118.1142452963567,
-        longitudeDelta: 0.0012706245097291458
-        }
 
     
     },
@@ -95,17 +101,12 @@ function Home({navigation}) {
               title={item.title}
               description={item.description}
             >
-                <Callout onPress={() => navigation.navigate(routes.EVENTS)} //will redirect to events if clicked on
-                >
+                <Callout onPress={() => navigation.navigate(routes.EVENTS)}>
                         <Text>{item.title}</Text>
                         <Text>{item.description}</Text>
 
-                        <Button title="Click for Events" //shows events button
+                        <Button title="Click for Events"/>
 
-                        onPress={() => console.log("pressed")
-                        }
-                    />
-                    
                 </Callout>
                    
                 
@@ -141,7 +142,7 @@ function Home({navigation}) {
                         })
                         }
                     >
-                        <MaterialIcons name="location-city" size={40} color="black"/>
+                        <Image source={require("../../assests/pin.png")} style={styles.button}  />
                     </TouchableOpacity>
                     </View>
                 
@@ -158,7 +159,11 @@ const styles = StyleSheet.create({
     map:{ //map conatiner
         width:"100%",
         flex:1,
-    }
+    },
+    button:{
+        width: "120%",
+        height:"120%",
+    },
 })
 
 export default Home;

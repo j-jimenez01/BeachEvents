@@ -1,69 +1,70 @@
-import React, { useState } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  Keyboard,
-  StatusBar,
-  SafeAreaView,
-  Button,
-  BackHandler,
-} from "react-native";
-import routes from "../../config/routes";
-import color from "../../config/color";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Button, Alert, Keyboard } from 'react-native';
+import color from '../../config/color';
+import routes from '../../config/routes';
+import bcrypt from 'react-native-bcrypt'
 
 
-export default function Register({ navigation, route }) {
-  const {id,fp,new_forget} = route.params
-  const [touched, setTouched] = useState(false);
+
+export default function Password({ navigation, route }) {
+
+  const {id,fp,new_forget} = route.params //fp,newfor
+  const [keyboardOn, setKeyboardOn] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  // API endpoint for registration and verification
+  const apiEndPoint = 'http://0.0.0.0:3000/api'; // For school
 
-  // const apiEndPoint = 'http://172.16.227.198:3000/api' //school
-  // const apiEndPoint =  'http://192.168.254.21:3000/api'//home
-  const apiEndPoint =  'http://0.0.0.0:3000/api'
-  const  Register = async () =>{
+  // Function to handle sending a verification email
+  const  Register = async (hash) =>{
     try{
       console.log(new_forget)
       console.log(`${apiEndPoint}/${new_forget}`)
       const response = await fetch(`${apiEndPoint}/${new_forget}`,
     {
-      
       method: 'POST',
       headers:{
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id,
-        password
-        
+        id, 
+        password: hash
       }),
-      
     })
-    // console.log("didnt work")
-    // console.log(id)
-
-    alert(id)
+    const data= await response.json()
     if (response.ok){
-        const data= await response.json()
         alert(data.message)
         navigation.navigate(routes.LOGIN)
     }
+    else{
+      alert(data.message)
+    }
     }catch(err){
-      
       console.log(err)
     }
     
-  } 
-  const checkCred = () => {
+  };
+
+
+  const checkPass = () => {
     if ((password != "") && (confirmPassword != "") && (password === confirmPassword)){ //
-      console.log("working?")
-      Register();
+            bcrypt.genSalt(6, (err, salt) => {
+                if (err) {
+                  console.error('Error generating salt:', err);
+                } else {
+                  bcrypt.hash(password, salt, (err, hash) => {
+                    if (err) {
+                        console.error('Error hashing password:', err);
+                    }else{
+                        console.log('Hashed Password:', hash);  
+                        Register(hash)
+                    }
+                  });
+                }
+              });
+              
+            // Register()
+       
     }
     else if (password != confirmPassword){
       alert("The entered Passwords do not match")
@@ -74,126 +75,128 @@ export default function Register({ navigation, route }) {
 }
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={{ alignItems: "center", background: "#010101", opacity: 0.5 }}
+    <TouchableOpacity
+      onPress={() => {
+        Keyboard.dismiss();
+      }} 
+      style={[keyboardOn ? styles.containerWithKeyboard : styles.container]}
       >
-        <MaterialIcons name="drag-handle" size={35} color="white" />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          Keyboard.dismiss();
-        }}
-        style={[touched ? styles.cardwithkeyboard : styles.card]}
-        hitSlop={{ top: "100%", left: "100%", right: "100%", bottom: "100%" }}
-        >
-        <Text style={styles.pageName}> {fp} Password</Text>
-        <Image
-          style={styles.image}
-          source={require("../../assests/icon.png")}
-        />
-        <View style={styles.inputView}>
-          <TextInput 
-            secureTextEntry={true}
-            onFocus={() => {
-              setTouched(true);
-            }}
-            style={styles.TextInput}
-            placeholder="Password"
-            placeholderTextColor={"#000000"}
-            onChangeText={(pass) => setPassword(pass)}
-            onBlur={() => {
-              setTouched(false);
-            }}
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput 
-            secureTextEntry={true}
-            onFocus={() => {
-              setTouched(true);
-            }}
-            style={styles.TextInput}
-            placeholder="Confirm Password"
-            placeholderTextColor={"#000000"}
-            onChangeText={(confPass) => setConfirmPassword(confPass)}
-            onBlur={() => {
-              setTouched(false);
-            }}
-          />
-        </View>
+      { keyboardOn ? null : <Image style={styles.logo} source={require("../../assests/Yticon.png")} />}
 
-       
-        {/* <Button title="Confirm" onPress={() => navigation.goBack()} /> */}
-        <Button title="Go to Login" onPress={() => checkCred()} />
-      </TouchableOpacity>
-    </View>
+      <View style={styles.prompt}>
+        <Text style={styles.pText}>
+          Enter your password and confirm it:
+        </Text>
+        <Text style={{ fontSize: 10, textAlign: 'center', fontStyle: "italic", fontFamily: "Helvetica" }}>
+          Note: The password should be composed of minimum 8 Alpha-Numeric.
+        </Text>
+      </View>
+
+      <View style={styles.inputView}>
+        <TextInput
+          onFocus={ () => setKeyboardOn(true)}
+          style={styles.TextInput}
+          placeholder="Password"
+          placeholderTextColor={"#000000"}
+          onChangeText={(pass) => setPassword(pass)}
+          onBlur={() => {
+            setKeyboardOn(false);
+          }}
+        />
+        
+      </View>
+
+      <View style={styles.inputView}>
+      <TextInput
+          onFocus={ () => setKeyboardOn(true)}
+          style={styles.TextInput}
+          placeholder="Confirm Password"
+          placeholderTextColor={"#000000"}
+          onChangeText={(confPass) => setConfirmPassword(confPass)}
+          onBlur={() => {
+            setKeyboardOn(false);
+          }}
+        />
+        
+      </View>
+      <Button
+        title="REGISTER"
+        onPress={() => checkPass()} // navigation.navigate 
+      />
+   
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  bar: {
-    backgroundColor: "pink",
-    height: "2%",
-  },
-  card: {
-    flex: 1,
-    backgroundColor: "lightgrey",
-    alignItems: "center",
-    justifyContent: "center",
-    marginLeft: 50,
-    marginRight: 50,
-    marginTop: "25%",
-    marginBottom: "45%",
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderRadius: 30,
-  },
-  cardwithkeyboard: {
-    flex: 1,
-    backgroundColor: "lightgrey",
-    alignItems: "center",
-    justifyContent: "center",
-    marginLeft: 50,
-    marginRight: 50,
-    marginBottom: "85%",
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderRadius: 30,
-  },
   container: {
     flex: 1,
-    backgroundColor: "#000000", //changing background color
+    backgroundColor: color.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    rowGap: 20,
+  },
+  containerWithKeyboard:{
+    paddingTop: '10%',
+    flex: 1,
+    backgroundColor: color.primary,
+    alignItems: 'center',
+    rowGap: 20,
+    
   },
   inputView: {
-    // backgroundColor: "#c97b06", //bubble design
-    borderRadius: 5,
-    width: "98%",
-    height: "10%",
-    display: "flex",
-    marginBottom: 15,
+    backgroundColor: color.yellow,
+    borderRadius: 30,
+    width: "80%",
+    height: "7%",
     alignItems: "center",
-    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "white",
   },
   TextInput: {
+    height: 50,
+    width: "80%",
+    textAlign: 'center',
     flex: 1,
-    backgroundColor: color.third,
-    borderWidth: 1,
-    borderRadius: 30,
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingLeft: 5,
-    textAlign: "center",
+    padding: 10,
+    fontSize: 15,
+    fontFamily: "Helvetica"
   },
-  pageName: {
-    fontSize: 30,
-    marginBottom: 25,
-  },
-  image: {
-    height: 150,
-    width: 120,
-    marginBottom: "10%",
+  prompt: {
+    height: "20%",
+    width: "80%",
+    backgroundColor: "white",
+    borderColor: color.yellow,
+    borderWidth: 5,
     borderRadius: 10,
+    alignContent: 'center',
+    justifyContent: 'space-evenly',
+  },
+  pText: {
+    fontSize: 20,
+    textAlign: 'center',
+    fontFamily: "Helvetica"
+  },
+  logo: {
+    height: "25%",
+    width: "38%",
   },
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
