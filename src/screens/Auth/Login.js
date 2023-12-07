@@ -112,7 +112,7 @@ function Login(props) {
           {/* <Button color={"black"}  title='Login' onPress={() =>  navigation.navigate(routes.MENU_NAVIGATOR) }/>   */}
           {/**authanticate() */}
           {/* {navigation.navigate(routes.MENU_NAVIGATOR), global.Email = "keshav.mehta@student.csulb.edu"} */}
-      <TouchableOpacity  onPress={() => {navigation.navigate(routes.MENU_NAVIGATOR), global.Email = "keshav.mehta@student.csulb.edu"}}> 
+      <TouchableOpacity  onPress={() => {authanticate()}}> 
         <Text>Login</Text>
       </TouchableOpacity>
 
