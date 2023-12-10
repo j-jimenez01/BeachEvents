@@ -15,7 +15,7 @@ function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   // API endpoint for authenticate
-  const apiEndpoint = 'http://0.0.0.0:3000/api';
+  const apiEndpoint = 'http://192.168.4.53:3000/api';
 
   const authanticate = async () => {
     if(password != '' && email != ''){
@@ -55,6 +55,7 @@ function Login(props) {
       if (err) {
         console.error('Error comparing passwords:', err);
       } else if (result) {
+        global.Email = email;
         navigation.navigate(routes.MENU_NAVIGATOR);
       } else {
         Alert.alert('Password is incorrect');
@@ -108,13 +109,14 @@ function Login(props) {
         <View style={styles.login}// Login button, will redirect to the home page when clicked
         >
           
-          <Button color={"black"}  title='Login' onPress={() =>  navigation.navigate(routes.MENU_NAVIGATOR) }/>  
+          {/* <Button color={"black"}  title='Login' onPress={() =>  navigation.navigate(routes.MENU_NAVIGATOR) }/>   */}
           {/**authanticate() */}
-          {/* <TouchableOpacity  onPress={() => authanticate()}> 
+          {/* {navigation.navigate(routes.MENU_NAVIGATOR), global.Email = "keshav.mehta@student.csulb.edu"} */}
+      <TouchableOpacity  onPress={() => authanticate()}> 
         <Text>Login</Text>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
 
-          {/* </Button> */}
+    
         </View>
    
     </TouchableOpacity>

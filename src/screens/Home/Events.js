@@ -8,46 +8,143 @@ import PinOverlay from "../Components/PinOverlay.js";
 
 //will display all events
 
-function Events(props) {
+function Events() {
   const [Data, setData] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [searchPhrase, setSearchPhrase] = useState("");
-  const [visible, setVisible] = useState(false);
+  const [overlayVisbility, setOverlayVisbility] = useState(false);
   const [event, setEvent] = useState("");
-  const [isRender, setIsRender] = useState(false);
-  const [pinItem, setPinItem] = useState();
+  // const [pinItem, setPinItem] = useState(false);
+  const [overlayButtonText, SetOVerlayButtonText] = useState("PIN");
+  const [currentItem, setCurrentItem] = useState("");
+  const apiEndpoint = 'http://192.168.4.53';
 
-  const handelPinItem = () =>{
-  
-    const newData  = Data.map( item => {
-      console.log(item.Id)
-      if (item.Id == pinItem){
-        item.pinned = !item.pinned;
+  const addEventAsPinned = async (item) => {
+    try {
+      await fetch(
+        apiEndpoint + ':3000/api/pinevent',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: global.Email.toLowerCase(),
+            event: {
+              id: currentItem,
+              location: item.location,
+            },
+          }),
+        }
+      ).then( async (res) =>{
+        const data = await res.json()
+        if (res && res.status === 200) {
+          alert(data.message)
+          item.pinned = true
+          // setPinItem(true)
+          setOverlayVisbility(false)
+          return item
+        }
+        else{
+          console.log('ERROR OCCURED :', data.message)
+          return item
+        }
+      })
+    }catch (error) {
+      console.error('Error during fetch:', error);
+      return item
+    }
+
+  }
+  const removeEventAsPinned = async (item) =>{
+    try{
+      console.log("LODA____________________________________")
+      await fetch(
+        apiEndpoint + ':3000/api/unpin',
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          }, 
+          body: JSON.stringify({
+            id: global.Email.toLowerCase(),
+            event: {
+              id: currentItem,
+              location: item.location,
+            },
+          }),
+        }
+      ).then(
+        async (res) =>{
+          const data = await res.json()
+          if (res && res.status === 200) {
+            alert(data.message)
+            item.pinned = false
+            // setPinItem(true)
+            setOverlayVisbility(false)
+            return item
+          }
+          else{
+            console.log('ERROR OCCURED :', data.message)
+            return item
+          }
+        }
+      )
+
+    }catch(error){
+      console.log('Error during fetch:', error)
+      return item
+    }
+  }
+
+  const handelPinItem = async () => {
+    const newData = await Promise.all(
+      Data.map(async (item) => {
+        if (item.key == currentItem){
+          if(overlayButtonText == "PIN"){
+            await addEventAsPinned(item)
+            return item;
+          }
+          else{
+            await removeEventAsPinned(item)
+            return item
+          }
+        }
         return item;
-      }
-      return item;
-    })
+      })
+    );
     setData(newData);
-    setIsRender(!isRender)
-  }
-  const onPressPin = () =>{
-    setVisible(false)
-    handelPinItem(pinItem)
-    
+    // if(pinItem){
+    //   setPinItem(false)
+    // }
+  };
+
+  
+  const onPressPin = async () =>{
+    await handelPinItem()
 
   }
+
   
-  const renderItem = ({item, index}) => {
+  const renderItem =  ({item, index}) => {
     return(
       <TouchableOpacity style={styles.container} 
         onPress={() => {
-          setEvent(item.name), 
-          setPinItem(item.Id)
-          setVisible(true)
+          setEvent(item.name),
+          setCurrentItem(item.key)
+          if(item.pinned){
+            SetOVerlayButtonText("REMOVE")
+          }
+          else{
+            SetOVerlayButtonText("PIN")
+          }
+          setOverlayVisbility(true)
+          
+
           }}>
         <View style={styles.header}>
           <Text style={styles.title}>{item.name}</Text>
-          {console.log(item.pinned)}
+          {console.log(item.pinned," ", index)}
           {
             item.pinned ? 
             <Icon
@@ -70,7 +167,8 @@ function Events(props) {
         />
         <Text style={styles.bold}>Location: <Text>{item.location}</Text></Text>
         <Text style={styles.bold}>Start: <Text>{item.start}</Text></Text> 
-        <Text style={styles.bold}>End: <Text>{item.end}</Text></Text>  
+        <Text style={styles.bold}>End: <Text>{item.end}</Text></Text>
+        <Text style={styles.bold}>key: <Text>{item.key}</Text></Text>    
         <View style={styles.borderLine} />
         <Text style={styles.textInput}>{item.description}</Text>
       </TouchableOpacity>
@@ -79,7 +177,7 @@ function Events(props) {
   }
   const getEvents = async (strInp) => {
     const res = await fetch(
-      `http://10.39.41.184:8000/data/getevents?query=${strInp}`,
+       `${apiEndpoint}:8000/data/getevents?query=${strInp}`,
       {
         method: "GET",
         headers: {
@@ -96,6 +194,7 @@ function Events(props) {
 
   return (
     <SafeAreaView style={{ backgroundColor: color.primary, flex: 1 }}>
+      {console.log("Email ID: ", global.Email)}
       <SearchField
        clicked={clicked}
        setClicked={setClicked}
@@ -106,15 +205,14 @@ function Events(props) {
       <FlatList
         data={Data}
         renderItem={ renderItem } 
-        keyExtractor={(item) =>  item.id}
-        extraData={isRender}
+        // extraData={isRender}
       />
       <PinOverlay
-        visible ={visible}
-        setVisible = {setVisible}
+        visible ={overlayVisbility}
+        setVisible = {setOverlayVisbility}
         eventName = {event}
-        onPressPin = {onPressPin}
-        buttonTitle = {"PIN"}
+        onPressItem = {onPressPin}
+        buttonTitle = {overlayButtonText}
       />
     </SafeAreaView>
   );
@@ -161,22 +259,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
 
   },
-  prompt: {
-    height: "20%",
-    width: "80%",
-    backgroundColor: "white",
-    borderColor: color.yellow,
-    borderWidth: 5,
-    borderRadius: 10,
-    alignContent: 'center',
-    justifyContent: 'space-evenly',
-  },
-  pText: {
-    fontSize: 20,
-    textAlign: 'center',
-    fontFamily: "Helvetica"
-  },
-
   textInput: {
     fontSize: 16,
     color: "#000000",
@@ -185,14 +267,14 @@ const styles = StyleSheet.create({
   bold: {
     fontWeight: "bold",
   },
-  left: {
-    flex: 1,
-  },
-  right: {
-    flex: 1,
-    alignItems: "flex-end",
-  },
-  rightText: {
-    textAlign: "right",
-  },
+  // left: {
+  //   flex: 1,
+  // },
+  // right: {
+  //   flex: 1,
+  //   alignItems: "flex-end",
+  // },
+  // rightText: {
+  //   textAlign: "right",
+  // },
 });

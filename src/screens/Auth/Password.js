@@ -15,7 +15,7 @@ export default function Password({ navigation, route }) {
 
 
   // API endpoint for registration and verification
-  const apiEndPoint = 'http://192.168.4.53:3000/api'; // For school
+  const apiEndPoint = 'http://10.39.120.229:3000/api'; // For school
 
   // Function to handle sending a verification email
   const  Register = async (hash) =>{

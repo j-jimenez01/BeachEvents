@@ -56,28 +56,7 @@ const Otp = ({navigation, route}) => {
       </View>
     )
   }
-  // const apiEndPoint = 'https://10.39.41.226:3000/api'
-//   const apiEndpoint = 'https://192.168.254.11:3000/api';
-//   const sendMail = async () =>{
-    
-//       const response = await fetch(apiEndpoint + '/send-verification-email', {
-//         method: 'GET',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//           email : "Keshav.Mehta@student.csulb.edu"
-//         }),
-//       });
 
-//       if (response.ok) {
-//         Alert.alert('Verification Email Sent', 'Please check your email for a verification code.');
-//       } else {
-//         const errorData = await response.json();
-//         Alert.alert('Error', errorData.message);
-//       }
-   
-// };
 
   const handleonPress = () => {
     setKeyboardOn(true)

@@ -12,7 +12,7 @@ const  PinOverlay = (props) => {
         {props.eventName}
       </Text>
       <Button title = {props.buttonTitle}
-          onPress={()=> {props.onPressPin()}}>
+          onPress={()=> {props.onPressItem()}}>
       </Button>
     </Overlay>
  
