@@ -89,4 +89,3 @@ Contributors:
 - Dhruv Govasiya (Github: DhruvGorasiya)
 - Juan Rivera (GitHub: JuanRivera-7)
 - Josh Hicks (GitHub: hicksjoshua287)
-- Ayush Patel (GitHub:)
