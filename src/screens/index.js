@@ -8,10 +8,12 @@ export {default as NewPass} from '../screens/Home/NewPass';
 export {default as Organization} from '../screens/Home/Organization';
 export {default as Subscribe} from '../screens/Home/Subscribe';
 export {default as SubOrg} from '../screens/Home/SubOrg';
+export {default as PinnedEvents} from '../screens/Home/PinnedEvents'
 
 //Components
 export {default as PinOverlay} from './Components/PinOverlay'
 export {default as SearchField}  from '../screens/Components/SearchBar'
+export {default as ShareItem} from '../screens/Components/ShareItem'
 
 
 // Auth Screens

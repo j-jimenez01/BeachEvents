@@ -96,7 +96,8 @@ function Home({navigation}) {
               title={item.title}
               description={item.description}
             >
-                <Callout onPress={() => navigation.navigate(routes.EVENTS)} //will redirect to events if clicked on
+                
+                <Callout onPress={() => navigation.navigate(routes.PINNED_EVENTS, {api: `http://192.168.254.11:8000/data/getEventById?query=9634061`})} //will redirect to events if clicked on
                 >
                         <Text>{item.title}</Text>
                         <Text>{item.description}</Text>

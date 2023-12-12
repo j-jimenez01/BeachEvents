@@ -5,7 +5,7 @@ import { SubOrg, Subscribe } from '../screens';
 
 
 //navigator for the subscribe to club events
-const Stack = createStackNavigator();
+const Stack = createStackNavigator(); 
 
 export default function SubNav() {
 

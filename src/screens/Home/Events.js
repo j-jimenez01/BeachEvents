@@ -4,20 +4,24 @@ import { Icon } from "@rneui/themed";
 import color from "../../config/color";
 import SearchField from "../Components/SearchBar.js";
 import PinOverlay from "../Components/PinOverlay.js";
+import ShareItem from "../Components/ShareItem.js";
 
 
 //will display all events
 
 function Events() {
+  // const[shareUrl, setShareUrl] = useState();
+  // const [title, setTitle] = useState("");
+  // const [url, setUrl] = useState("");
+  // const [message, setMessage] = useState("")
   const [Data, setData] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [searchPhrase, setSearchPhrase] = useState("");
   const [overlayVisbility, setOverlayVisbility] = useState(false);
   const [event, setEvent] = useState("");
-  // const [pinItem, setPinItem] = useState(false);
   const [overlayButtonText, SetOVerlayButtonText] = useState("PIN");
   const [currentItem, setCurrentItem] = useState("");
-  const apiEndpoint = 'http://192.168.4.53';
+  const apiEndpoint = 'http://192.168.254.11';
 
   const addEventAsPinned = async (item) => {
     try {
@@ -30,10 +34,11 @@ function Events() {
           },
           body: JSON.stringify({
             id: global.Email.toLowerCase(),
-            event: {
-              id: currentItem,
-              location: item.location,
-            },
+            event: item
+            // event: {
+            //   id: currentItem,
+            //   location: item.location,
+            // },
           }),
         }
       ).then( async (res) =>{
@@ -41,14 +46,13 @@ function Events() {
         if (res && res.status === 200) {
           alert(data.message)
           item.pinned = true
-          // setPinItem(true)
-          setOverlayVisbility(false)
-          return item
         }
         else{
           console.log('ERROR OCCURED :', data.message)
-          return item
         }
+        setOverlayVisbility(false)
+        return item
+        
       })
     }catch (error) {
       console.error('Error during fetch:', error);
@@ -58,7 +62,6 @@ function Events() {
   }
   const removeEventAsPinned = async (item) =>{
     try{
-      console.log("LODA____________________________________")
       await fetch(
         apiEndpoint + ':3000/api/unpin',
         {
@@ -80,7 +83,6 @@ function Events() {
           if (res && res.status === 200) {
             alert(data.message)
             item.pinned = false
-            // setPinItem(true)
             setOverlayVisbility(false)
             return item
           }
@@ -90,7 +92,6 @@ function Events() {
           }
         }
       )
-
     }catch(error){
       console.log('Error during fetch:', error)
       return item
@@ -114,9 +115,6 @@ function Events() {
       })
     );
     setData(newData);
-    // if(pinItem){
-    //   setPinItem(false)
-    // }
   };
 
   
@@ -124,7 +122,6 @@ function Events() {
     await handelPinItem()
 
   }
-
   
   const renderItem =  ({item, index}) => {
     return(
@@ -144,7 +141,7 @@ function Events() {
           }}>
         <View style={styles.header}>
           <Text style={styles.title}>{item.name}</Text>
-          {console.log(item.pinned," ", index)}
+          {/* {console.log(item.pinned," ", index)} */}
           {
             item.pinned ? 
             <Icon
@@ -165,10 +162,16 @@ function Events() {
           style={styles.image}
           source={{ uri: item.imagePath}}
         />
+        <View style={styles.header}>
+        <View>
         <Text style={styles.bold}>Location: <Text>{item.location}</Text></Text>
         <Text style={styles.bold}>Start: <Text>{item.start}</Text></Text> 
         <Text style={styles.bold}>End: <Text>{item.end}</Text></Text>
-        <Text style={styles.bold}>key: <Text>{item.key}</Text></Text>    
+        </View>
+        <ShareItem
+            item = {item}
+        /> 
+        </View>
         <View style={styles.borderLine} />
         <Text style={styles.textInput}>{item.description}</Text>
       </TouchableOpacity>
@@ -211,7 +214,7 @@ function Events() {
         visible ={overlayVisbility}
         setVisible = {setOverlayVisbility}
         eventName = {event}
-        onPressItem = {onPressPin}
+        onPressButton = {onPressPin}
         buttonTitle = {overlayButtonText}
       />
     </SafeAreaView>

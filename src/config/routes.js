@@ -16,6 +16,7 @@ export default {
     SUBSCRIBE: 'Subscribed To',
     SUBORG: 'Organization Events',
     MAPNAV: 'Map',
-    PASSWORD: 'Password Screen'
+    PASSWORD: 'Password Screen',
+    PINNED_EVENTS: 'Pinned Event'
 
   };
