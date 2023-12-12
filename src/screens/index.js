@@ -8,6 +8,7 @@ export {default as NewPass} from '../screens/Home/NewPass';
 export {default as Organization} from '../screens/Home/Organization';
 export {default as Subscribe} from '../screens/Home/Subscribe';
 export {default as SubOrg} from '../screens/Home/SubOrg';
+export {default as PinnedEvents} from '../screens/Home/PinnedEvents';
 
 //Components
 export {default as PinOverlay} from './Components/PinOverlay'
@@ -27,6 +28,7 @@ export {default as Change} from '../navigators/Change';
 export {default as LogNav} from '../navigators/LogNav';
 export {default as MapNav} from '../navigators/MapNav';
 export {default as SubNav} from '../navigators/SubNav';
+export {default as PinNav} from '../navigators/PinNav';
 export {default as RegNav} from '../navigators/RegNav';
 export {default as ForgotNav} from '../navigators/ForgotNav';
 

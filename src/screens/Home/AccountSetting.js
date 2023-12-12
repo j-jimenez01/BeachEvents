@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from 'react';
-import { Button, SafeAreaView, View,StatusBar, StyleSheet, TouchableHighlight, Image,Text, TouchableOpacity} from 'react-native';
+import { Button, SafeAreaView, View,StatusBar, StyleSheet, TouchableHighlight, Image,Text, TouchableOpacity, LogBox} from 'react-native';
 import color from '../../config/color';
 import routes from '../../config/routes';
 import * as ImagePicker from "expo-image-picker";
@@ -142,13 +142,14 @@ function AccountSetting({navigation}) {
                     </TouchableOpacity>
                 </View>
 
-            </View>
+
+                </View>
                    
                 <View style ={styles.settingBorder}>
                     
                  <Button 
                     title="Change Password" //change password button
-                    onPress={()=> navigation.navigate(routes.NEW_PASSWORD)} />
+                    onPress={()=> navigation.navigate(routes.FORGOT_PASSWORD)} />
                 
                 <Button 
                     title = "Change Profile Picture" //change picture button
@@ -157,13 +158,13 @@ function AccountSetting({navigation}) {
 
                 <Button 
                     title = "Sign Out" //change picture button
+                    onPress={() => navigation.navigate(routes.LOGIN)}
                 />
 
 
 
 
-                </View>
-                
+                </View>                
         </SafeAreaView>
     );
 }

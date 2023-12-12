@@ -7,6 +7,7 @@ import routes from '../../config/routes';
 import { MaterialIcons } from "@expo/vector-icons";
 import { Image, Linking } from "react-native";
 
+const apiEndpoint = 'http://0.0.0.0';
 
 openMaps = (lat, lng) => {
     var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
@@ -29,7 +30,7 @@ function Home({ navigation }) {
                 const email = global.Email.toLowerCase(); // replace with the user's email
                 console.log(email)
                 const response = await fetch(
-                    `http://0.0.0.0:8000/data/getpinlist?query=${email}`,
+                    `${apiEndpoint}:8000/data/getPinList?query=${email}`,
                 );
 
                 const data = await response.json();
@@ -46,7 +47,8 @@ function Home({ navigation }) {
         };
 
         fetchPinnedEvents();
-    }, []);
+        // }, [pinnedEvents]);
+        }, []);
 
     const onRegionChange = (region) => {
         console.log(region);
@@ -85,12 +87,13 @@ function Home({ navigation }) {
 
                         <Button title="Click for Events" />
                     </Callout> */}
-
-                    <Callout onPress={() => navigation.push(routes.EVENTS)}>
-                        <Text>{item.title}</Text>
+                    {/* {console.log(`${apiEndpoint}:8000/data/getevents?query=${item.id}`)} */}
+                    {console.log(item.place)}
+                    {console.log(`${apiEndpoint}:8000/data/getevents?query=${item.place}`)}
+                    <Callout onPress={() => navigation.push(routes.PINNED_EVENTS,{api: `${apiEndpoint}:8000/data/getevents?query=${item.place}`, item: item})}>
+                        {/* <Text>{item.title}</Text> */}
                         <Text>{item.description}</Text>
                         <Button title="Click for Events" />
-
                     </Callout>
                 </Marker>
             )

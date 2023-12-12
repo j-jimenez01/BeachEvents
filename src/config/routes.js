@@ -17,6 +17,7 @@ export default {
   SUBORG: 'Organization Events',
   MAPNAV: 'Map',
   PASSWORD: 'Password Screen',
+  PINNED_EVENTS: 'pinned events',
   EVENTS_PINS: 'Events pins'
 
 };
