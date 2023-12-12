@@ -7,6 +7,7 @@ import routes from '../../config/routes';
 export default function Forgot({ navigation }) {
   const [email, setEmail] = useState("");
 
+  // const apiEndPoint = 'http://0.0.0.0:3000/api';
   const apiEndPoint = 'http://0.0.0.0:3000/api';
 
   const sendOTP = async () => {

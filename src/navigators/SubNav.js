@@ -2,6 +2,8 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import routes from '../config/routes';
 import { SubOrg, Subscribe } from '../screens';
+import PinnedEvents from '../screens/Home/PinnedEvents';
+
 
 
 //navigator for the subscribe to club events
@@ -19,7 +21,7 @@ export default function SubNav() {
       <Stack.Group screenOptions={{presentation:"modal"}}>
       <Stack.Screen name={routes.SUBORG} component={SubOrg} />
       </Stack.Group>
-      
+
     </Stack.Navigator>
     
   );

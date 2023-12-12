@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import routes from '../config/routes';
-import { Events, Home} from '../screens';
+import { Events, Home, PinnedEvents} from '../screens';
 
 //navigator for the map
 
@@ -19,6 +19,10 @@ export default function MapNav() {
 
       <Stack.Group screenOptions={{presentation:"modal"}}>
       <Stack.Screen name={routes.EVENTS} component={Events} //events page
+      />
+      </Stack.Group>
+      <Stack.Group screenOptions={{presentation:"modal"}}>
+      <Stack.Screen name={routes.PINNED_EVENTS} component={PinnedEvents} //events page
       />
       </Stack.Group>
       

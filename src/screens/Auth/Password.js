@@ -99,6 +99,7 @@ export default function Password({ navigation, route }) {
           placeholder="Password"
           placeholderTextColor={"#000000"}
           onChangeText={(pass) => setPassword(pass)}
+          secureTextEntry={true}
           onBlur={() => {
             setKeyboardOn(false);
           }}
@@ -113,6 +114,7 @@ export default function Password({ navigation, route }) {
           placeholder="Confirm Password"
           placeholderTextColor={"#000000"}
           onChangeText={(confPass) => setConfirmPassword(confPass)}
+          secureTextEntry={true}
           onBlur={() => {
             setKeyboardOn(false);
           }}
@@ -120,7 +122,7 @@ export default function Password({ navigation, route }) {
         
       </View>
       <Button
-        title="REGISTER"
+        title="Submit"
         onPress={() => checkPass()} // navigation.navigate 
       />
    
@@ -182,21 +184,3 @@ const styles = StyleSheet.create({
     width: "38%",
   },
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

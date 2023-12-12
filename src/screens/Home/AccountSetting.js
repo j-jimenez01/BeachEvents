@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from 'react';
-import { Button, SafeAreaView, View,StatusBar, StyleSheet, TouchableHighlight, Image,Text, TouchableOpacity} from 'react-native';
+import { Button, SafeAreaView, View,StatusBar, StyleSheet, TouchableHighlight, Image,Text, TouchableOpacity, LogBox} from 'react-native';
 import color from '../../config/color';
 import routes from '../../config/routes';
 import * as ImagePicker from "expo-image-picker";
@@ -142,7 +142,8 @@ function AccountSetting({navigation}) {
                     </TouchableOpacity>
                 </View>
 
-            </View>
+
+                </View>
                    
                 <View style ={styles.settingBorder}>
                     
@@ -163,8 +164,7 @@ function AccountSetting({navigation}) {
 
 
 
-                </View>
-                
+                </View>                
         </SafeAreaView>
     );
 }

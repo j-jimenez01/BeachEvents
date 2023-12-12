@@ -55,9 +55,9 @@ function Login(props) {
       if (err) {
         console.error('Error comparing passwords:', err);
       } else if (result) {
+        global.Email = email;
         navigation.navigate(routes.MENU_NAVIGATOR);
       } else {
-        console.log("Your password: ",password)
         Alert.alert('Password is incorrect');
       }
     });
@@ -109,14 +109,14 @@ function Login(props) {
         <View style={styles.login}// Login button, will redirect to the home page when clicked
         >
           
-          {/* <Button color={"black"}  title='Go To Home Page' onPress={() => navigation.navigate(routes.MENU_NAVIGATOR)}/>  */}
-          {/**navigation.navigate(routes.MENU_NAVIGATOR) */}
-
-          <TouchableOpacity  onPress={() => authanticate()}> 
+          {/* <Button color={"black"}  title='Login' onPress={() =>  navigation.navigate(routes.MENU_NAVIGATOR) }/>   */}
+          {/**authanticate() */}
+          {/* {navigation.navigate(routes.MENU_NAVIGATOR), global.Email = "keshav.mehta@student.csulb.edu"} */}
+      <TouchableOpacity  onPress={() => {authanticate()}}> 
         <Text>Login</Text>
       </TouchableOpacity>
 
-          {/* </Button> */}
+    
         </View>
    
     </TouchableOpacity>

@@ -1,18 +1,187 @@
 import { React, useEffect, useState } from "react";
-import { Text, SafeAreaView, ScrollView,FlatList, View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Text, SafeAreaView,FlatList, View, StyleSheet, Image, TouchableOpacity, Button, EventSubscriptionVendor } from "react-native";
+import { Icon } from "@rneui/themed";
 import color from "../../config/color";
 import SearchField from "../Components/SearchBar.js";
+import PinOverlay from "../Components/PinOverlay.js";
+import ShareItem from "../Components/ShareItem.js";
+import routes from "../../config/routes.js";
 
 
 //will display all events
 
 function Events(props) {
+  // const[shareUrl, setShareUrl] = useState();
+  // const [title, setTitle] = useState("");
+  // const [url, setUrl] = useState("");
+  // const [message, setMessage] = useState("")
   const [Data, setData] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [searchPhrase, setSearchPhrase] = useState("");
+  const [overlayVisbility, setOverlayVisbility] = useState(false);
+  const [event, setEvent] = useState("");
+  const [overlayButtonText, SetOVerlayButtonText] = useState("PIN");
+  const [currentItem, setCurrentItem] = useState("");
+  const apiEndpoint = 'http://0.0.0.0';
+
+  const addEventAsPinned = async (item) => {
+    try {
+      await fetch(
+        apiEndpoint + ':3000/api/pinevent',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: global.Email.toLowerCase(),
+            event: {
+              id: currentItem,
+              location: item.location,
+            },
+          }),
+        }
+      ).then( async (res) =>{
+        const data = await res.json()
+        if (res && res.status === 200) {
+          alert(data.message)
+          item.pinned = true
+        }
+        else{
+          console.log('ERROR OCCURED :', data.message)
+        }
+        setOverlayVisbility(false)
+        return item
+        
+      })
+    }catch (error) {
+      console.error('Error during fetch:', error);
+      return item
+    }
+
+  }
+  const removeEventAsPinned = async (item) =>{
+    try{
+      await fetch(
+        apiEndpoint + ':3000/api/unpin',
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          }, 
+          body: JSON.stringify({
+            id: global.Email.toLowerCase(),
+            event: {
+              id: currentItem,
+              location: item.location,
+            },
+          }),
+        }
+      ).then(
+        async (res) =>{
+          const data = await res.json()
+          if (res && res.status === 200) {
+            alert(data.message)
+            item.pinned = false
+            setOverlayVisbility(false)
+            return item
+          }
+          else{
+            console.log('ERROR OCCURED :', data.message)
+            return item
+          }
+        }
+      )
+    }catch(error){
+      console.log('Error during fetch:', error)
+      return item
+    }
+  }
+
+  const handelPinItem = async () => {
+    const newData = await Promise.all(
+      Data.map(async (item) => {
+        if (item.key == currentItem){
+          if(overlayButtonText == "PIN"){
+            await addEventAsPinned(item)
+            props.navigation.navigate(routes.HOME)
+            return item;
+          }
+          else{
+            await removeEventAsPinned(item)
+            return item
+          }
+        }
+        return item;
+      })
+    );
+    setData(newData);
+  };
+
+  
+  const onPressPin = async () =>{
+    await handelPinItem()
+
+  }
+  
+  const renderItem =  ({item, index}) => {
+    return(
+      <TouchableOpacity style={styles.container} 
+        onPress={() => {
+          setEvent(item.name),
+          setCurrentItem(item.key)
+          if(item.pinned){
+            SetOVerlayButtonText("REMOVE")
+          }
+          else{
+            SetOVerlayButtonText("PIN")
+          }
+          setOverlayVisbility(true)
+          
+
+          }}>
+        <View style={styles.header}>
+          <Text style={styles.title}>{item.name}</Text>
+          {/* {console.log(item.pinned," ", index)} */}
+          {
+            item.pinned ? 
+            <Icon
+              name="bookmark"
+              type ='font-awesome'
+              size={30}
+            />
+            :
+            <Icon
+              name="bookmark-o"
+              type ='font-awesome'
+              size={30}
+            />
+
+          }
+        </View>
+        <Image
+          style={styles.image}
+          source={{ uri: item.imagePath}}
+        />
+        <View style={styles.header}>
+        <View>
+        <Text style={styles.bold}>Location: <Text>{item.location}</Text></Text>
+        <Text style={styles.bold}>Start: <Text>{item.start}</Text></Text> 
+        <Text style={styles.bold}>End: <Text>{item.end}</Text></Text>
+        </View>
+        <ShareItem
+            item = {item}
+        /> 
+        </View>
+        <View style={styles.borderLine} />
+        <Text style={styles.textInput}>{item.description}</Text>
+      </TouchableOpacity>
+
+    )
+  }
   const getEvents = async (strInp) => {
     const res = await fetch(
-      `http://0.0.0.0:8000/data/getevents?query=${strInp}`,
+       `${apiEndpoint}:8000/data/getevents?query=${strInp}`,
       {
         method: "GET",
         headers: {
@@ -25,8 +194,11 @@ function Events(props) {
   useEffect(() => {
     getEvents(searchPhrase);
   }, [searchPhrase]);
+
+
   return (
     <SafeAreaView style={{ backgroundColor: color.primary, flex: 1 }}>
+      {console.log("Email ID: ", global.Email)}
       <SearchField
        clicked={clicked}
        setClicked={setClicked}
@@ -36,47 +208,16 @@ function Events(props) {
       />
       <FlatList
         data={Data}
-        renderItem={({ item }) => (
-          <View>
-            <TouchableOpacity style={styles.container} onPress={() => {}}>
-              <Text style={styles.title}>{item.name}</Text>
-              <Image
-                style={styles.image}
-                source={{ uri: item.imagePath}}
-              />
-              <Text style={styles.bold}>Location: <Text>{item.location}</Text></Text>
-              <Text style={styles.bold}>Start: <Text>{item.start}</Text></Text> 
-              <Text style={styles.bold}>End: <Text>{item.end}</Text></Text>  
-              <View style={styles.borderLine} />
-              <Text style={styles.textInput}>{item.description}</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+        renderItem={ renderItem } 
+        // extraData={isRender}
       />
-
-      {/* <ScrollView>//makes it scrollable */}
-
-      {/* <View style = {styles.container}> 
-            <Text style={styles.text}  //placeholder for backend, will display events function
-                >Events</Text>
-            </View> */}
-      {/* <View style={styles.container}> */}
-      {/* <Text style={styles.title}>ASI                                                     Date: <Text style={styles.textInput}>May 2</Text></Text>
-                
-                <View style={styles.borderLine} /> */}
-
-      {/* <Text style={styles.textInput}>
-                <Text style={styles.bold}>Location:</Text> SRWC Entry Plaza{'\n'}
-                <Text style={styles.bold}>Time:</Text> 5 to 7 p.m.
-                </Text> */}
-      {/* <Text style={styles.textInput} multiline = {true}><Text style={styles.bold}>Description:</Text>{'\n'}Join us May 2 from 5 to 7 p.m. for the Owen’s Condition for Tuition Celebration event at the Student Recreation & Wellness Center (SRWC)! Whether you earned one point, or finished all 50 points, we are inviting you to all the fun things to celebrate your commitment to wellness. Free giveaways, food and fun await!{'\n'}
-Come by for free food, ice cream, shakes and more snacks to feed your appetite. There will be music, activities and inflatables for your entertainment. We will also have a balloon artist, henna and airbrush tattoos, caricature drawings and a photo booth to keep the fun going.{'\n'}
-Prizes ranging from a Bluetooth speaker to beach cruiser bike will be awarded. The pinnacle of this event is an opportunity drawing for a semester of paid tuition for those that have completed the program with all 50 points.
-What better way to conclude this semester? See you there and Pura Vida!</Text> */}
-
-      {/* </View> */}
-
-      {/* </ScrollView> */}
+      <PinOverlay
+        visible ={overlayVisbility}
+        setVisible = {setOverlayVisbility}
+        eventName = {event}
+        onPressButton = {onPressPin}
+        buttonTitle = {overlayButtonText}
+      />
     </SafeAreaView>
   );
 }
@@ -93,12 +234,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#cccccc",
   },
+  header: {
+    flexDirection:"row",
+    justifyContent: "space-between",
+  },
   title: {
     marginLeft: 5,
     marginTop: 5,  
     fontSize: 18,
+    // color: "white",
     fontWeight: "bold",
     marginBottom: 10,
+    width: "85%"
   },
   borderLine: {
     borderBottomWidth: 1,
@@ -116,7 +263,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
 
   },
-
   textInput: {
     fontSize: 16,
     color: "#000000",
@@ -125,14 +271,14 @@ const styles = StyleSheet.create({
   bold: {
     fontWeight: "bold",
   },
-  left: {
-    flex: 1,
-  },
-  right: {
-    flex: 1,
-    alignItems: "flex-end",
-  },
-  rightText: {
-    textAlign: "right",
-  },
+  // left: {
+  //   flex: 1,
+  // },
+  // right: {
+  //   flex: 1,
+  //   alignItems: "flex-end",
+  // },
+  // rightText: {
+  //   textAlign: "right",
+  // },
 });
