@@ -129,18 +129,18 @@ const onPressButton = async() =>{
 } 
 
 
-  const getOrgs = async (strInp) => {
-    const res = await fetch(
-      `${apiEndpoint}:8000/data/getorgs?query=${strInp}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    setData(await res.json())
-  }
+const getOrgs = async (strInp) => {
+  const res = await fetch(
+    `${apiEndpoint}:8000/data/getorgs?query=${strInp}&id=${global.Email.toLowerCase()}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  setData(await res.json())
+}
   useEffect(() => {getOrgs(searchPhrase);}, [searchPhrase]);
   // const url = "https://www.asicsulb.org/corporate/resources/about-us/press-kit";
 

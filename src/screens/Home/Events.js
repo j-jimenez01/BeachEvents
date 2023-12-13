@@ -181,7 +181,7 @@ function Events(props) {
   }
   const getEvents = async (strInp) => {
     const res = await fetch(
-       `${apiEndpoint}:8000/data/getevents?query=${strInp}`,
+       `${apiEndpoint}:8000/data/getevents?query=${strInp}&id=${global.Email.toLowerCase()}`,
       {
         method: "GET",
         headers: {
